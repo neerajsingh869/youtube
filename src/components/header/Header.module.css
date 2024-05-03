@@ -92,3 +92,27 @@
   width: 30px;
   border: 50%;
 }
+
+@media screen and (max-width: 650px) {
+  .header {
+    padding: 0 1rem;
+  }
+
+  .headerStart > div {
+    display: none;
+  }
+
+  .headerCenter > form {
+    flex-grow: 1;
+  }
+
+  .headerCenter {
+    flex-grow: 1;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .headerEnd > *:not(img) {
+    display: none;
+  }
+}
