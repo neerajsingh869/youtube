@@ -9,7 +9,7 @@ import profilePhoto from "../../assets/profile.png";
 
 const Header = () => {
   return (
-    <div className={`border border-dark ${styles.header}`}>
+    <header className={`border border-dark ${styles.header}`}>
       <div className={styles.headerStart}>
         <FaBars size={28} className={styles.headerMenu} />
         <div>
@@ -33,7 +33,7 @@ const Header = () => {
         <MdApps size={28} />
         <img src={profilePhoto} alt="Profile Photo" />
       </div>
-    </div>
+    </header>
   )
 };
 
