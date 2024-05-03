@@ -35,18 +35,18 @@
 
 /* styles for search bar */
 .headerCenter {
+  margin-inline: 1rem;
   flex-basis: 60%;
   display: flex;
   justify-content: center;
 }
 
 .headerCenter > form {
-  width: 80%;
+  flex-basis: 70%;
   display: flex;
   justify-content: center;
   background-color: var(--black-primary);
   border-radius: 20px;
-  border: 2px solid #303030;
 }
 
 .headerCenter > form > input {
@@ -56,6 +56,7 @@
   background-color: transparent;
   color: var(--text-color);
   padding-inline: 1rem;
+  border: 2px solid #303030;
 }
 
 .headerCenter > form > input:focus {

@@ -20,7 +20,7 @@ const Header = () => {
       
       <div className={styles.headerCenter}>
         <form>
-          <input type="text" placeholder="Search" />
+          <input type="text" placeholder="Search" size={4} />
           <div></div>
           <button>
             <AiOutlineSearch size={28} />
