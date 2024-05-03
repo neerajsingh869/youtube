@@ -44,12 +44,12 @@ const Sidebar = ({ sidebar, toggleSidebar }) => {
         <MdSentimentDissatisfied size={23} />
         <span>I don&apos;t Know</span>
       </li>
-      <hr />
+      <hr style={{color: "white"}} />
       <li>
         <MdExitToApp size={23} />
         <span>Log Out</span>
       </li>
-      <hr />
+      <hr style={{color: "white"}} />
     </nav>
   );
 };
