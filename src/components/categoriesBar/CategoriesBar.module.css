@@ -1,0 +1,38 @@
+.categoriesBar {
+  overflow-x: scroll;
+  display: flex;
+  padding-block: 1rem;
+  margin-bottom: 1rem;
+}
+
+.categoriesBar::-webkit-scrollbar {
+  height: 10px;             /* height of the entire scrollbar */
+}
+
+.categoriesBar::-webkit-scrollbar-track {
+  background: var(--black-primary);        /* color of the tracking area */
+}
+
+.categoriesBar::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: none;  /* creates padding around scroll thumb */
+  cursor: pointer;
+}
+
+.categoriesBar > div {
+  padding: 0.25rem;
+  padding-inline: 0.5rem;
+  margin: 0.25rem;
+  margin-inline: 0.5rem;
+  white-space: nowrap;
+  background-color: var(--border-color);
+  cursor: pointer;
+  border-radius: 10px;
+  color: var(--text-color-primary);
+}
+
+.categoriesBar > div.active {
+  background-color: var(--text-color-primary);
+  color: black;
+}
