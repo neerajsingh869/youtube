@@ -1,0 +1,93 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 10vh;
+  width: 100%;
+  padding: 0rem 2rem;
+}
+
+/* styles for hamburger and youtube logo */
+.headerStart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.headerStart > div {
+  display: flex;
+  align-items: center;
+}
+
+.headerLogo {
+  object-fit: contain;
+  width: 34px;
+}
+
+.youtubeName {
+  margin-left: 6px;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  color: white;
+}
+
+/* styles for search bar */
+.headerCenter {
+  flex-basis: 60%;
+  display: flex;
+  justify-content: center;
+}
+
+.headerCenter > form {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  background-color: var(--black-primary);
+  border-radius: 20px;
+  border: 2px solid #303030;
+}
+
+.headerCenter > form > input {
+  flex-grow: 1;
+  border: none;
+  border-radius: 18px 0 0 18px;
+  background-color: transparent;
+  color: var(--text-color);
+  padding-inline: 1rem;
+}
+
+.headerCenter > form > input:focus {
+  outline: none;
+}
+
+.headerCenter > form > div {
+  border-right: 1px solid #303030;
+}
+
+.headerCenter > form > button {
+  color: var(--text-color);
+  background-color: #303030;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0 18px 18px 0;
+}
+
+.headerCenter > form > button:focus {
+  border: none;
+}
+
+/* styles for notifications, apps, and profile photo */
+.headerEnd {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.headerEnd > img {
+  object-fit: contain;
+  width: 30px;
+  border: 50%;
+}
