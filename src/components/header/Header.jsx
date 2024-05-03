@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styles from "./Header.module.css";
 
 import { FaBars } from "react-icons/fa6";
@@ -7,17 +8,25 @@ import { MdNotifications, MdApps } from "react-icons/md";
 import youtubeLogo from "../../assets/youtube.png";
 import profilePhoto from "../../assets/profile.png";
 
-const Header = () => {
+const Header = ({ toggleSidebar }) => {
   return (
     <header className={`border border-dark ${styles.header}`}>
       <div className={styles.headerStart}>
-        <FaBars size={28} className={styles.headerMenu} />
+        <FaBars
+          size={28}
+          className={styles.headerMenu}
+          onClick={toggleSidebar}
+        />
         <div>
-          <img src={youtubeLogo} alt="YouTube Logo" className={styles.headerLogo} />
+          <img
+            src={youtubeLogo}
+            alt="YouTube Logo"
+            className={styles.headerLogo}
+          />
           <span className={styles.youtubeName}>YouTube</span>
         </div>
       </div>
-      
+
       <div className={styles.headerCenter}>
         <form>
           <input type="text" placeholder="Search" size={4} />
@@ -34,7 +43,7 @@ const Header = () => {
         <img src={profilePhoto} alt="Profile Photo" />
       </div>
     </header>
-  )
+  );
 };
 
 export default Header;
