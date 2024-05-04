@@ -1,4 +1,4 @@
-import { LOAD_PROFILE, LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS } from "../actions/authActions";
+import { LOAD_PROFILE, LOGIN_LOGOUT_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, LOG_OUT } from "../actions/authActions";
 
 const INITIAL_STATE = {
   accessToken: sessionStorage.getItem('yt-access-token') ? sessionStorage.getItem('yt-access-token') : null,
@@ -21,7 +21,7 @@ export const authReducer = (state = INITIAL_STATE, action) => {
         accessToken: payload,
         loading: false
       }
-    case LOGIN_FAIL:
+    case LOGIN_LOGOUT_FAIL:
       return {
         ...state,
         accessToken: null,
@@ -32,6 +32,12 @@ export const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         user: payload
+      }
+    case LOG_OUT:
+      return {
+        ...state,
+        accessToken: null,
+        user: null,
       }
     default:
       return state;

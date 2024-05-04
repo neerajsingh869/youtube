@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useDispatch } from "react-redux";
 import styles from "./Sidebar.module.css";
 
 import {
@@ -10,8 +11,15 @@ import {
   MdSentimentDissatisfied,
   MdHome,
 } from "react-icons/md";
+import { logout } from "../../redux/actions/authActions";
 
 const Sidebar = ({ sidebar, toggleSidebar }) => {
+  const dispatch = useDispatch();
+  
+  const handleLogout = () => {
+    dispatch(logout());
+  }
+
   console.log(sidebar);
   return (
     <nav
@@ -45,7 +53,7 @@ const Sidebar = ({ sidebar, toggleSidebar }) => {
         <span>I don&apos;t Know</span>
       </li>
       <hr style={{color: "white"}} />
-      <li>
+      <li onClick={handleLogout}>
         <MdExitToApp size={23} />
         <span>Log Out</span>
       </li>

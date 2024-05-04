@@ -3,7 +3,7 @@ import { auth, provider } from "../../config/firebase";
 
 // action constants
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_FAIL = "LOGIN_FAIL";
+export const LOGIN_LOGOUT_FAIL = "LOGIN_LOGOUT_FAIL";
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOG_OUT = "LOG_OUT";
 export const LOAD_PROFILE = "LOAD_PROFILE";
@@ -39,7 +39,27 @@ export const login = () => async dispatch => {
     console.log(error.message);
 
     dispatch({
-      type: LOGIN_FAIL,
+      type: LOGIN_LOGOUT_FAIL,
+      payload: error.message
+    })
+  }
+}
+
+export const logout = () => async dispatch => {
+  try {
+    await auth.signOut();
+
+    dispatch({
+      type: LOG_OUT,
+    })
+  
+    sessionStorage.removeItem('yt-access-token');
+    sessionStorage.removeItem('yt-user');
+  } catch (error) {
+    console.log(error.message);
+
+    dispatch({
+      type: LOGIN_LOGOUT_FAIL,
       payload: error.message
     })
   }
