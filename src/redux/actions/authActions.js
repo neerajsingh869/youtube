@@ -22,6 +22,9 @@ export const login = () => async dispatch => {
       photoUrl: result.user.photoURL
     }
 
+    sessionStorage.setItem('yt-access-token', accessToken);
+    sessionStorage.setItem('yt-user', JSON.stringify(profile));
+
     dispatch({
       type: LOGIN_SUCCESS,
       payload: accessToken

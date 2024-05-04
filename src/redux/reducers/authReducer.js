@@ -1,8 +1,8 @@
 import { LOAD_PROFILE, LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS } from "../actions/authActions";
 
 const INITIAL_STATE = {
-  accessToken: null,
-  user: null,
+  accessToken: sessionStorage.getItem('yt-access-token') ? sessionStorage.getItem('yt-access-token') : null,
+  user: sessionStorage.getItem('yt-user') ? JSON.parse(sessionStorage.getItem('yt-user')): null,
   loading: false
 }
 
