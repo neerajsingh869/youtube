@@ -1,0 +1,31 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  
+}
+
+.container > div > img {
+  width: 130px;
+  object-fit: contain;
+  margin-inline: auto;
+}
+
+.container > div > button {
+  width: 150px;
+  height: 40px;
+  margin-top: -0.75rem;
+}
+
+.container > div > p {
+  color: var(--text-color-secondary);
+}

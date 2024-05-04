@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import Header from "./components/header/Header";
 import Home from "./pages/home/Home";
 import Sidebar from "./components/sidebar/Sidebar";
+import Login from "./pages/login/Login";
 
 function App() {
   const [sidebar, setSidebar] = useState(false);
@@ -15,13 +16,14 @@ function App() {
 
   return (
     <>
-      <Header toggleSidebar={toggleSidebar} />
+      {/* <Header toggleSidebar={toggleSidebar} />
       <div className="app_container border border-info">
         <Sidebar sidebar={sidebar} toggleSidebar={toggleSidebar} />
         <Container fluid className="app_main border border-warning">
           <Home />
         </Container>
-      </div>
+      </div> */}
+      <Login />
     </>
   );
 }
