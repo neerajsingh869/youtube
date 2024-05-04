@@ -8,6 +8,8 @@
   --border-color: #303030;
   --breakpoint-medium: 1224px;
   --breakpoint-small: 560px;
+  --light-background-color: #f1f1f1;
+  --text-color-light-dark: #333;
 }
 
 * {
