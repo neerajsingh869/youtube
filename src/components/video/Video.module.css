@@ -1,0 +1,52 @@
+.video {
+  cursor: pointer;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.video > * {
+  color: white;
+}
+
+/* style video thumbnail */
+.videoTop {
+  position: relative;
+}
+
+.videoTop > img {
+  width: 100%;
+}
+
+.videoTop > span {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  background-color: var(--black-primary);
+  padding-inline: 0.25rem;
+  border-radius: 0.5rem;
+}
+
+/* style video info like video title, video creator, no.of views, etc */
+.videoInfo {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.videoInfo > img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.videoDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.videoDetails > div {
+  display: flex;
+  flex-direction: column;
+}

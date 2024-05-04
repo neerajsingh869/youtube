@@ -22,5 +22,6 @@ body {
   color: var(--text-color);
   background-attachment: fixed;
   background-color: var(--black-primary);
-  overflow: hidden;
+  /* overflow: hidden; */
+  overflow-x: hidden;
 }
