@@ -3,7 +3,6 @@
   flex-direction: column;
   padding-top: 1rem;
   background-color: var(--black-primary);
-  border: 1px solid var(--border-color);
   height: 90vh;
 }
 
