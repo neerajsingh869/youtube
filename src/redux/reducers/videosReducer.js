@@ -19,7 +19,7 @@ export const videosReducer = (state = INITIAL_STATE, action) => {
     case HOME_VIDEOS_SUCCESS: 
       return {
         ...state,
-        videos: payload.videos,
+        videos: payload.category === state.activeCategory ? [...state.videos, ...payload.videos] : payload.videos,
         nextPageToken: payload.nextPageToken,
         loading: false,
         activeCategory: payload.category

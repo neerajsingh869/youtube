@@ -3,7 +3,10 @@
   flex-direction: column;
   padding-top: 1rem;
   background-color: var(--black-primary);
-  height: 90vh;
+  height: calc(100vh - 73px);
+  position: sticky;
+  top: 73px;
+  left: 0;
 }
 
 .sidebar > li {

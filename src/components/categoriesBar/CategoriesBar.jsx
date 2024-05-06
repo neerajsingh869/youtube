@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./CategoriesBar.module.css";
 import { useDispatch } from "react-redux";
-import { getVideosByCategory } from "../../redux/actions/videosAction";
+import { getPopularVideos, getVideosByCategory } from "../../redux/actions/videosAction";
 
 const keywords = [
   "All",
@@ -30,16 +30,22 @@ const CategoriesBar = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getVideosByCategory(activeCategory));
-  }, [activeCategory, dispatch]);
+  const handleCategoryClick = (category) => {
+    if (category === 'All') {
+      dispatch(getPopularVideos());
+    } else {
+      dispatch(getVideosByCategory(category));
+    }
+
+    setActiveCategory(category);
+  }
 
   return (
     <div className={styles.categoriesBar}>
       {keywords.map((value, index) => (
         <div
           key={index}
-          onClick={() => setActiveCategory(value)}
+          onClick={() => handleCategoryClick(value)}
           className={activeCategory === value ? `${styles.active}` : ""}
         >
           {value}

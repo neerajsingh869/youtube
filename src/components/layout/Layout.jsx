@@ -14,6 +14,7 @@ const Layout = ({children}) => {
 
   useEffect(() => {
     if (!loading && !accessToken) {
+      console.log("navigate to login page");
       navigate('/login');
     }
   }, [loading, accessToken, navigate]);
@@ -29,7 +30,7 @@ const Layout = ({children}) => {
     <Header toggleSidebar={toggleSidebar} />
     <div className={styles.appContainer}>
       <Sidebar sidebar={sidebar} toggleSidebar={toggleSidebar} />
-      <Container fluid className="app_main">
+      <Container fluid className={styles.appMain}>
         {children}
       </Container>
     </div>

@@ -6,7 +6,7 @@ export const HOME_VIDEOS_FAIL = "HOME_VIDEOS_FAIL";
 export const HOME_VIDEOS_REQUEST = "HOME_VIDEOS_REQUEST";
 
 // action creators
-export const getPopularVideos = () => async dispatch => {
+export const getPopularVideos = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: HOME_VIDEOS_REQUEST
@@ -18,7 +18,7 @@ export const getPopularVideos = () => async dispatch => {
         chart: "mostPopular",
         regionCode: "IN",
         maxResults: 20,
-        pageToken: "",
+        pageToken: getState().homeVideos.nextPageToken,
       }
     });
 
