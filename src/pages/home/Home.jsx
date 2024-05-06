@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 
 import CategoriesBar from "../../components/categoriesBar/CategoriesBar";
 import Video from "../../components/video/Video";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getPopularVideos } from "../../redux/actions/videosAction";
 
@@ -14,6 +14,8 @@ const Home = () => {
   useEffect(() => {
     dispatch(getPopularVideos());
   }, [dispatch]);
+
+  const { videos } = useSelector(state => state.homeVideos);
   
   return (
     <Container>
@@ -21,9 +23,9 @@ const Home = () => {
         <CategoriesBar />
       </Row>
       <Row>
-        {[...new Array(10)].map((element, index) => (
-          <Col key={index} lg={3} md={4}>
-            <Video />
+        {videos.map(video => (
+          <Col key={video.id} lg={3} md={4}>
+            <Video video={video} />
           </Col>
         ))}
       </Row>
