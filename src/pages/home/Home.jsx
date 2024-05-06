@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getPopularVideos, getVideosByCategory } from "../../redux/actions/videosAction";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Loader from "../../components/loader/Loader";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const Home = () => {
     }
   }, [dispatch, accessToken]);
 
-  const { videos, activeCategory } = useSelector(state => state.homeVideos);
+  const { videos, activeCategory, loading } = useSelector(state => state.homeVideos);
 
   const fetchData = () => {
     if (activeCategory === 'All') {
@@ -34,6 +35,12 @@ const Home = () => {
 
   console.log(videos);
   console.log(activeCategory);
+
+  if (loading) {
+    return (
+      <Loader />
+    );
+  }
   
   return (
     <Container>
