@@ -35,12 +35,6 @@ const Home = () => {
 
   console.log(videos);
   console.log(activeCategory);
-
-  if (loading) {
-    return (
-      <Loader />
-    );
-  }
   
   return (
     <Container>
@@ -56,11 +50,13 @@ const Home = () => {
         }
       >
         <Row>
-          {videos.map((video, index) => (
-            <Col key={`${video.id} ${index}`} lg={3} md={4}>
-              <Video video={video} />
-            </Col>
-          ))}
+          {!loading ? (
+            videos.map((video, index) => (
+              <Col key={`${video.id} ${index}`} lg={3} md={4}>
+                <Video video={video} />
+              </Col>
+            ))
+          ) : <Loader />}
         </Row>
       </InfiniteScroll>
     </Container>
