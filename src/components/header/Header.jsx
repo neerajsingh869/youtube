@@ -10,7 +10,7 @@ import profilePhoto from "../../assets/profile.png";
 
 const Header = ({ toggleSidebar }) => {
   return (
-    <header className={`border border-dark ${styles.header}`}>
+    <header className={styles.header}>
       <div className={styles.headerStart}>
         <FaBars
           size={28}

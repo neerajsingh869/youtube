@@ -29,7 +29,7 @@ const Layout = ({children}) => {
     <Header toggleSidebar={toggleSidebar} />
     <div className={styles.appContainer}>
       <Sidebar sidebar={sidebar} toggleSidebar={toggleSidebar} />
-      <Container fluid className="app_main border border-warning">
+      <Container fluid className="app_main">
         {children}
       </Container>
     </div>
