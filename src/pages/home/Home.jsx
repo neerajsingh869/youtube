@@ -23,8 +23,8 @@ const Home = () => {
         <CategoriesBar />
       </Row>
       <Row>
-        {videos.map(video => (
-          <Col key={video.id} lg={3} md={4}>
+        {videos.map((video, index) => (
+          <Col key={`${video.id} ${index}`} lg={3} md={4}>
             <Video video={video} />
           </Col>
         ))}

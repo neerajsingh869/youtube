@@ -21,12 +21,14 @@ const Video = ({video}) => {
     thumbnails: {medium}
   }} = video;
 
+  const parsedVideoId = id?.videoId || id;
+
   useEffect(() => {
     const getVideoDetails = async () => {
       const {data: {items}} = await request('/videos', {
         params: {
           part: 'contentDetails,statistics',
-          id: id
+          id: parsedVideoId
         }
       });
 
@@ -35,7 +37,7 @@ const Video = ({video}) => {
     };
 
     getVideoDetails();
-  }, [id])
+  }, [parsedVideoId])
 
   useEffect(() => {
     const getChannelIcon = async () => {

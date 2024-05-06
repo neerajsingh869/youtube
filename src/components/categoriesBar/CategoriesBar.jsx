@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./CategoriesBar.module.css";
+import { useDispatch } from "react-redux";
+import { getVideosByCategory } from "../../redux/actions/videosAction";
 
 const keywords = [
   "All",
@@ -26,6 +28,11 @@ const keywords = [
 
 const CategoriesBar = () => {
   const [activeCategory, setActiveCategory] = useState("All");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getVideosByCategory(activeCategory));
+  }, [activeCategory, dispatch]);
 
   return (
     <div className={styles.categoriesBar}>
