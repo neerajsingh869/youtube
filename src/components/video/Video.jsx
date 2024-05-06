@@ -11,7 +11,14 @@ const Video = ({video}) => {
   const [channelIcon, setChannelIcon] = useState(null);
 
   const seconds = moment.duration(duration).asSeconds();
-  const parsedDuration = moment.utc(seconds * 1000).format('mm:ss');
+  const hours = moment.duration(duration).hours();
+  
+  let parsedDuration;
+  if (hours === 0) {
+    parsedDuration = moment.utc(seconds * 1000).format('mm:ss');
+  } else {
+    parsedDuration = moment.utc(seconds * 1000).format('HH:mm:ss');
+  }
 
   const {id, snippet: {
     channelId,
