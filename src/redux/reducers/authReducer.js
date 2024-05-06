@@ -1,4 +1,4 @@
-import { LOAD_PROFILE, LOGIN_LOGOUT_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, LOG_OUT } from "../actions/authActions";
+import { LOAD_PROFILE, LOGIN_LOGOUT_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, LOG_OUT } from "../actions/authAction";
 
 const INITIAL_STATE = {
   accessToken: sessionStorage.getItem('yt-access-token') ? sessionStorage.getItem('yt-access-token') : null,

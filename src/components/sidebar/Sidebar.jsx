@@ -11,7 +11,7 @@ import {
   MdSentimentDissatisfied,
   MdHome,
 } from "react-icons/md";
-import { logout } from "../../redux/actions/authActions";
+import { logout } from "../../redux/actions/authAction";
 
 const Sidebar = ({ sidebar, toggleSidebar }) => {
   const dispatch = useDispatch();

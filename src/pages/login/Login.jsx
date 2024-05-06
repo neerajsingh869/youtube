@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import youtubeLogo from "../../assets/youtube.png";
 import styles from "./Login.module.css";
-import { login } from "../../redux/actions/authActions";
+import { login } from "../../redux/actions/authAction";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 

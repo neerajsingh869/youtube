@@ -4,8 +4,17 @@ import Col from "react-bootstrap/Col";
 
 import CategoriesBar from "../../components/categoriesBar/CategoriesBar";
 import Video from "../../components/video/Video";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getPopularVideos } from "../../redux/actions/videosAction";
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPopularVideos());
+  }, [dispatch]);
+  
   return (
     <Container>
       <Row>
