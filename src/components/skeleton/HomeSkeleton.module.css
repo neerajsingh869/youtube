@@ -1,0 +1,18 @@
+.video {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.videoInfo {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.videoDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+}

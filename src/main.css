@@ -21,9 +21,19 @@
 body {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
-  color: var(--text-color);
+  color: var(--text-color-primary);
   background-attachment: fixed;
   background-color: var(--black-primary);
   /* overflow: hidden; */
   overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+  background-color: var(--black-primary);
+  width: 0.75rem;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #d6d3d1;
+  outline: 1px solid slategrey;
 }

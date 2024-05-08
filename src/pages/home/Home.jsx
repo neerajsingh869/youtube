@@ -1,6 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import styles from "./Home.module.css";
 
 import CategoriesBar from "../../components/categoriesBar/CategoriesBar";
 import Video from "../../components/video/Video";
@@ -8,7 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getPopularVideos, getVideosByCategory } from "../../redux/actions/videosAction";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Loader from "../../components/loader/Loader";
+import Skeleton from "react-loading-skeleton";
+import 'react-loading-skeleton/dist/skeleton.css'
+import HomeSkeleton from "../../components/skeleton/HomeSkeleton";
+import { Spinner } from "react-bootstrap";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -46,17 +50,27 @@ const Home = () => {
         next={fetchData}
         hasMore={true}
         loader={
-          <div>Loading...</div>
+          <div className="d-flex justify-content-center">
+            <div className="spinner-border" role="status" />
+          </div>
         }
+        className={styles.infiniteScrollContainer}
       >
         <Row>
-          {!loading ? (
-            videos.map((video, index) => (
-              <Col key={`${video.id} ${index}`} lg={3} md={4}>
-                <Video video={video} />
-              </Col>
-            ))
-          ) : <Loader />}
+          {
+            !loading ? 
+              videos.map((video, index) => (
+                <Col key={`${video.id} ${index}`} lg={3} md={4}>
+                  <Video video={video} />
+                </Col>
+              ))
+              : 
+              [...new Array(20)].map((_, index) => (
+                <Col key={index} lg={3} md={4}>
+                  <HomeSkeleton />
+                </Col>
+              ))
+          }
         </Row>
       </InfiniteScroll>
     </Container>
