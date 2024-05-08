@@ -3,7 +3,7 @@
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.5rem;
 }
 
 .video > * {
@@ -15,11 +15,11 @@
   position: relative;
 }
 
-.videoTop > img {
+.videoTop img {
   width: 100%;
 }
 
-.videoTop > span {
+.videoTop > span:nth-child(2) {
   position: absolute;
   right: 0.5rem;
   bottom: 0.5rem;
@@ -34,7 +34,7 @@
   gap: 0.5rem;
 }
 
-.videoInfo > img {
+.videoInfo img {
   width: 32px;
   height: 32px;
   border-radius: 50%;

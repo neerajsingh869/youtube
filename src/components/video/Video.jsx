@@ -4,6 +4,8 @@ import request from "../../../api";
 import styles from "./Video.module.css";
 import moment from "moment/moment";
 import numeral from "numeral";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const Video = ({video}) => {
   const [views, setViews] = useState(null);
@@ -64,11 +66,13 @@ const Video = ({video}) => {
   return (
     <div className={styles.video}>
       <div className={styles.videoTop}>
-        <img src={medium?.url} alt="" />
-        <span>{parsedDuration}</span>
+        {/* <img src={medium?.url} alt="" /> */}
+        <LazyLoadImage src={medium?.url} effect="blur" />
+        <span className={styles.videoDuration}>{parsedDuration}</span>
       </div>
       <div className={styles.videoInfo}>
-        <img src={channelIcon?.url} alt="" />
+        {/* <img src={channelIcon?.url} alt="" /> */}
+        <LazyLoadImage style={{width: "32px"}} src={channelIcon?.url} effect="blur" />
         <div className={styles.videoDetails}>
           <span className={styles.videoTitle}>{title}</span>
           <div>
