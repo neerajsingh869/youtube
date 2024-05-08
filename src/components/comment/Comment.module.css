@@ -1,0 +1,23 @@
+.comment {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding-block: 0.5rem;
+}
+
+.comment > img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.commentBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.commentText {
+  font-size: 0.88rem;
+}
