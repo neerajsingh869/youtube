@@ -6,11 +6,14 @@ import moment from "moment/moment";
 import numeral from "numeral";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { useNavigate } from "react-router-dom";
 
 const Video = ({video}) => {
   const [views, setViews] = useState(null);
   const [duration, setDuration] = useState(null);
   const [channelIcon, setChannelIcon] = useState(null);
+
+  const navigate = useNavigate();
 
   const seconds = moment.duration(duration).asSeconds();
   const hours = moment.duration(duration).hours();
@@ -62,9 +65,13 @@ const Video = ({video}) => {
 
     getChannelIcon();
   }, [channelId])
+
+  const handleVideoClick = () => {
+    navigate(`/watch/${parsedVideoId}`);
+  }
   
   return (
-    <div className={styles.video}>
+    <div className={styles.video} onClick={handleVideoClick}>
       <div className={styles.videoTop}>
         {/* <img src={medium?.url} alt="" /> */}
         <LazyLoadImage src={medium?.url} effect="blur" />

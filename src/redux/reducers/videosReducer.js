@@ -1,13 +1,13 @@
-import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS } from "../actions/videosAction";
+import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS, SELECTED_VIDEO_FAIL, SELECTED_VIDEO_REQUEST, SELECTED_VIDEO_SUCCESS } from "../actions/videosAction";
 
-const INITIAL_STATE = {
+const HOME_VIDEOS_INITIAL_STATE = {
   videos: [],
   loading: false,
   nextPageToken: null,
   activeCategory: 'All'
 };
 
-export const videosReducer = (state = INITIAL_STATE, action) => {
+export const homeVideosReducer = (state = HOME_VIDEOS_INITIAL_STATE, action) => {
   const {type, payload} = action;
 
   switch (type) {
@@ -34,3 +34,35 @@ export const videosReducer = (state = INITIAL_STATE, action) => {
       return state;
   }
 } 
+
+const SELECTED_VIDEO_INITIAL_STATE = {
+  loading: false,
+  video: null
+}
+
+export const selectedVideoReducer = (state = SELECTED_VIDEO_INITIAL_STATE, action) => {
+  const {type, payload} = action;
+
+  switch (type) {
+    case SELECTED_VIDEO_REQUEST: 
+      return {
+        ...state,
+        loading: true
+      }
+    case SELECTED_VIDEO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        video: payload
+      }
+    case SELECTED_VIDEO_FAIL: 
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+        video: null
+      }
+    default:
+      return state;
+  }
+}

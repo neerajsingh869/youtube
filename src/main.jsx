@@ -10,12 +10,18 @@ import Error from "./components/error/Error.jsx";
 import Layout from "./components/layout/Layout.jsx";
 import Home from "./pages/home/Home.jsx";
 import Login from "./pages/login/Login.jsx";
+import Watch from "./pages/watch/Watch.jsx";
 
 const routes = createRoutesFromElements(
   <Route path="/" errorElement={<Error />}>
     <Route index={true} element={
       <Layout>
         <Home />
+      </Layout>
+    } />
+    <Route path="watch/:id" element={
+      <Layout>
+        <Watch />
       </Layout>
     } />
     <Route path="login" element={<Login />} />
