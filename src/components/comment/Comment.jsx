@@ -1,23 +1,26 @@
+/* eslint-disable react/prop-types */
+
 import styles from "./Comment.module.css";
-import profilePhoto from "../../assets/profile.png";
 import moment from "moment";
 
-const Comment = () => {
+const Comment = ({comment}) => {
+  const topLevelComment = comment?.snippet?.topLevelComment?.snippet;
+  console.log(topLevelComment);
+
   return (
     <div className={styles.comment}>
-      <img src={profilePhoto} alt="Profile Photo" />
+      <img src={topLevelComment?.authorProfileImageUrl} alt="Profile Photo" />
       <div className={styles.commentBody}>
         <div className={styles.commentHeader}>
           <span style={{fontSize: "0.8rem", cursor: "pointer", marginRight: "0.25rem", color: "var(--text-color-primary)"}}>
-            @neerajsingh869
+            {topLevelComment?.authorDisplayName}
           </span>
           <span style={{fontSize: "0.7rem", cursor: "pointer", color: "var(--text-color-secondary)"}}>
-            {moment("2023-09-10").fromNow()}
+            {moment(topLevelComment?.publishedAt).fromNow()}
           </span>
         </div>
         <div className={styles.commentText}>
-          Ek acha Senior Developer banne ke liye mujhe Debugging aur Attention to Details wale aspect mein thoda aur work karna hai. 
-          Baki 7 points toh mai kaafi time se follow karta aa raha hu.
+          {topLevelComment?.textOriginal}
         </div>
       </div>
     </div>

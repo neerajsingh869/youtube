@@ -34,7 +34,7 @@ const Watch = () => {
         </div>
 
         {video ? <VideoMetadata video={video} /> : <h6>Loading...</h6>}
-        <Comments />
+        <Comments videoId={id} />
       </Col>
       <Col lg={4}>
         {
