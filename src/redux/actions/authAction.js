@@ -1,4 +1,4 @@
-import { signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../config/firebase";
 
 // action constants
@@ -17,8 +17,10 @@ export const login = () => async dispatch => {
     provider.addScope("https://www.googleapis.com/auth/youtube.force-ssl");
 
     const result = await signInWithPopup(auth, provider);
+    const credential = GoogleAuthProvider.credentialFromResult(result);
     // console.log(result.user.accessToken);
     const accessToken = result.user.accessToken;
+    const googleAccessToken = credential.accessToken;
 
     const profile = {
       name: result.user.displayName,
@@ -27,10 +29,14 @@ export const login = () => async dispatch => {
 
     sessionStorage.setItem('yt-access-token', accessToken);
     sessionStorage.setItem('yt-user', JSON.stringify(profile));
+    sessionStorage.setItem('yt-google-access-token', googleAccessToken);
 
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: accessToken
+      payload: {
+        accessToken,
+        googleAccessToken
+      }
     });
 
     dispatch({
@@ -58,6 +64,7 @@ export const logout = () => async dispatch => {
   
     sessionStorage.removeItem('yt-access-token');
     sessionStorage.removeItem('yt-user');
+    sessionStorage.removeItem('yt-google-access-token');
   } catch (error) {
     console.log(error.message);
 

@@ -4,11 +4,23 @@ import numeral from "numeral";
 import moment from "moment";
 
 import { MdThumbUpOffAlt, MdThumbDownOffAlt } from "react-icons/md";
-import profilePhoto from "../../assets/profile.png";
 import ShowMoreText from "react-show-more-text";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { checkSubscriptionStatus, getChannelDetails } from "../../redux/actions/channelAction";
 
 const VideoMetadata = ({video}) => {
-  const {snippet: {publishedAt, title, description, channelTitle}, statistics: {likeCount, viewCount}} = video;
+  const {snippet: {publishedAt, title, description, channelTitle, channelId}, statistics: {likeCount, viewCount}} = video;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkSubscriptionStatus(channelId));
+    dispatch(getChannelDetails(channelId));
+  }, [dispatch, channelId]);
+
+  const {channel} = useSelector(state => state.channelDetails);
+  const {subscriptionStatus} = useSelector(state => state.subscriptionStatus);
 
   return (
     <div className={styles.videoMetadata}>
@@ -16,14 +28,16 @@ const VideoMetadata = ({video}) => {
         <p className={styles.videoTitle}>{title}</p>
         <div className={styles.videoDetails}>
           <div className={styles.videoChannel}>
-            <img src={profilePhoto} alt="" />
+            <img src={channel?.snippet?.thumbnails?.default?.url} alt="" />
             <div className={styles.videoChannelInfo}>
               <div className={styles.videoChannelName}>{channelTitle}</div>
               <div style={{fontSize: "0.75rem", color: "var(--text-color-secondary)"}}>
-                {numeral(100000).format('0.a')} subscribers 
+                {numeral(channel?.statistics?.subscriberCount).format('0.a')} subscribers 
               </div>
             </div>
-            <button>Subscribe</button>
+            <button className={subscriptionStatus ? styles.subscribed : undefined}>
+              {subscriptionStatus ? "Subscribed" : "Subscribe"}
+            </button>
           </div>
           <div className={styles.videoSentiments}>
             <button>
