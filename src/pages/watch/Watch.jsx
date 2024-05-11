@@ -6,7 +6,8 @@ import styles from "./Watch.module.css";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getVideoById } from "../../redux/actions/videosAction";
+import { getPopularVideos, getVideoById } from "../../redux/actions/videosAction";
+import Skeleton from "react-loading-skeleton";
 
 const Watch = () => {
   const {id} = useParams();
@@ -15,9 +16,15 @@ const Watch = () => {
   useEffect(() => {
     console.log("helajrlk")
     dispatch(getVideoById(id));
+
+    dispatch(getPopularVideos());
   }, [dispatch, id])
 
   const {video} = useSelector(state => state.selectedVideo);
+
+  const { videos, loading: relatedVideosLoading } = useSelector(state => state.homeVideos);
+  console.log("******POPULAR VIDEOS***************");
+  console.log(videos);
 
   return (
     <Row>
@@ -38,7 +45,10 @@ const Watch = () => {
       </Col>
       <Col lg={4}>
         {
-          [...Array(10)].map((_, index) => <VideoHorizontal key={index} />)
+          !relatedVideosLoading ?
+          videos.map((video, index) => <VideoHorizontal video={video} key={index} />)
+          :
+          <Skeleton width="100%" height="130px" count={15} />
         }
       </Col>
     </Row>
