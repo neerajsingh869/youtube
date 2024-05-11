@@ -4,10 +4,11 @@ import styles from "./Comments.module.css";
 import profilePhoto from "../../assets/profile.png";
 import Comment from "../comment/Comment";
 import { useDispatch, useSelector } from "react-redux";
-import { getCommentsOfVideoById } from "../../redux/actions/commentsAction";
-import { useEffect } from "react";
+import { addComment, getCommentsOfVideoById } from "../../redux/actions/commentsAction";
+import { useEffect, useState } from "react";
 
 const Comments = ({videoId}) => {
+  const [commentText, setCommentText] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,13 +18,23 @@ const Comments = ({videoId}) => {
   const {comments} = useSelector(state => state.commentsList);
   console.log(comments);
 
+  const handleCommentSubmit = (e) => {
+    e.preventDefault();
+
+    if (commentText.length === 0) return;
+
+    dispatch(addComment(videoId, commentText));
+
+    setCommentText('');
+  }
+
   return (
     <div className={styles.comments}>
       <p>{comments.length} Comments</p>
       <div className={styles.commentsForm}>
         <img src={profilePhoto} alt="" />
-        <input type="text" placeholder="Add a comment..." />
-        <button>Comment</button>
+        <input type="text" placeholder="Add a comment..." value={commentText} onChange={(e) => setCommentText(e.target.value)} />
+        <button onClick={handleCommentSubmit}>Comment</button>
       </div>
       <div className={styles.commentsList}>
         {
