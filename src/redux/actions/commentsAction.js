@@ -29,8 +29,6 @@ export const getCommentsOfVideoById = id => async dispatch => {
       payload: response.data.items
     })
   } catch (error) {
-    console.log(error.message);
-
     dispatch({
       type: COMMENTS_LSIT_FAIL,
       payload: error.message
@@ -70,8 +68,6 @@ export const addComment = (id, commentText) => async (dispatch, getState) => {
 
     setTimeout(() => dispatch(getCommentsOfVideoById(id)), 60000 * 4);
   } catch (error) {
-    console.log(error.message);
-
     dispatch({
       type: CREATE_COMMENT_FAIL,
       payload: error.message

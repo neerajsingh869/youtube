@@ -7,11 +7,23 @@ import { MdNotifications, MdApps } from "react-icons/md";
 
 import youtubeLogo from "../../assets/youtube.png";
 import profilePhoto from "../../assets/profile.png";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Header = ({ toggleSidebar }) => {
+  const [searchInput, setSearchInput] = useState('');
+  
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+
+    navigate(`/search/${searchInput}`);
+  }
+
   return (
     <header className={styles.header}>
-      <div className={styles.headerStart}>
+      <div className={styles.headerStart} onClick={() => navigate('/')}>
         <FaBars
           size={28}
           className={styles.headerMenu}
@@ -28,8 +40,8 @@ const Header = ({ toggleSidebar }) => {
       </div>
 
       <div className={styles.headerCenter}>
-        <form>
-          <input type="text" placeholder="Search" size={4} />
+        <form onSubmit={handleSearchSubmit}>
+          <input type="text" placeholder="Search" size={4} value={searchInput} onChange={e => setSearchInput(e.target.value)} />
           <div></div>
           <button>
             <AiOutlineSearch size={28} />

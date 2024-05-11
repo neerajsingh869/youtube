@@ -16,7 +16,6 @@ const Comments = ({videoId}) => {
   }, [dispatch, videoId])
 
   const {comments} = useSelector(state => state.commentsList);
-  console.log(comments);
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();

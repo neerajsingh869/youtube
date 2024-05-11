@@ -18,7 +18,6 @@ export const login = () => async dispatch => {
 
     const result = await signInWithPopup(auth, provider);
     const credential = GoogleAuthProvider.credentialFromResult(result);
-    // console.log(result.user.accessToken);
     const accessToken = result.user.accessToken;
     const googleAccessToken = credential.accessToken;
 
@@ -43,10 +42,7 @@ export const login = () => async dispatch => {
       type: LOAD_PROFILE,
       payload: profile
     })
-    console.log(result);
   } catch (error) {
-    console.log(error.message);
-
     dispatch({
       type: LOGIN_LOGOUT_FAIL,
       payload: error.message
@@ -66,8 +62,6 @@ export const logout = () => async dispatch => {
     sessionStorage.removeItem('yt-user');
     sessionStorage.removeItem('yt-google-access-token');
   } catch (error) {
-    console.log(error.message);
-
     dispatch({
       type: LOGIN_LOGOUT_FAIL,
       payload: error.message

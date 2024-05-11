@@ -5,7 +5,6 @@ import moment from "moment";
 
 const Comment = ({comment}) => {
   const topLevelComment = comment?.snippet?.topLevelComment?.snippet;
-  console.log(topLevelComment);
 
   return (
     <div className={styles.comment}>

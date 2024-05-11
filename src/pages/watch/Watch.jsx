@@ -14,7 +14,6 @@ const Watch = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("helajrlk")
     dispatch(getVideoById(id));
 
     dispatch(getPopularVideos());
@@ -23,8 +22,6 @@ const Watch = () => {
   const {video} = useSelector(state => state.selectedVideo);
 
   const { videos, loading: relatedVideosLoading } = useSelector(state => state.homeVideos);
-  console.log("******POPULAR VIDEOS***************");
-  console.log(videos);
 
   return (
     <Row>

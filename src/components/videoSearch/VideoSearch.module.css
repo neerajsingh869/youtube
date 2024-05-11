@@ -1,0 +1,110 @@
+.video {
+  cursor: pointer;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.video > * {
+  color: white;
+}
+
+/* style video thumbnail */
+.videoLeft {
+  position: relative;
+  width: 25%;
+}
+
+.videoLeft img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.videoLeft > span:nth-child(2) {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  background-color: var(--black-primary);
+  padding-inline: 0.25rem;
+  border-radius: 0.5rem;
+}
+
+/* style video info like video title, video creator, no.of views, etc */
+.videoInfo {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.videoInfo img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.videoDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.videoDetails > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.videoTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+          line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* channel related styles */
+.channelData {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.channelIconContainer {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.channelIconContainer img {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.channelDetails {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.channelData > button {
+  height: 2.4rem;
+  border-radius: 1.2rem;
+  padding-inline: 1rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: none;
+}
+
+.channelData > button:hover {
+  background-color: #d4d4d4;
+}
+
+.channelData > button.subscribed {
+  background-color: var(--border-color);
+  color: white;
+}

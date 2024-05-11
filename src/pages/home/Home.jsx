@@ -35,9 +35,6 @@ const Home = () => {
     }
   }
 
-  console.log(videos);
-  console.log(activeCategory);
-  
   return (
     <Container>
       <Row>

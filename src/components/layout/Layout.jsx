@@ -14,7 +14,6 @@ const Layout = ({children}) => {
 
   useEffect(() => {
     if (!loading && !accessToken) {
-      console.log("navigate to login page");
       navigate('/login');
     }
   }, [loading, accessToken, navigate]);

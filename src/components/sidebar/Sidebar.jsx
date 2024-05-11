@@ -20,7 +20,6 @@ const Sidebar = ({ sidebar, toggleSidebar }) => {
     dispatch(logout());
   }
 
-  console.log(sidebar);
   return (
     <nav
       className={

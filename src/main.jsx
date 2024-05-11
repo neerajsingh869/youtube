@@ -11,6 +11,7 @@ import Layout from "./components/layout/Layout.jsx";
 import Home from "./pages/home/Home.jsx";
 import Login from "./pages/login/Login.jsx";
 import Watch from "./pages/watch/Watch.jsx";
+import Search from "./pages/search/Search.jsx";
 
 const routes = createRoutesFromElements(
   <Route path="/" errorElement={<Error />}>
@@ -22,6 +23,11 @@ const routes = createRoutesFromElements(
     <Route path="watch/:id" element={
       <Layout>
         <Watch />
+      </Layout>
+    } />
+    <Route path="search/:query" element={
+      <Layout>
+        <Search />
       </Layout>
     } />
     <Route path="login" element={<Login />} />
