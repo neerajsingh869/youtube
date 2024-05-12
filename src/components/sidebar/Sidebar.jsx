@@ -77,14 +77,10 @@ const Sidebar = ({ sidebar, toggleSidebar }) => {
         </li>
       </NavLink>
       <hr style={{color: "white"}} />
-      <NavLink to="/login" className={({ isActive }) =>
-        isActive ? `${styles.linkActive} ${styles.navLink}` : `${styles.navLink}`
-      }>
-        <li onClick={handleLogout}>
-          <MdExitToApp size={23} />
-          <span>Log Out</span>
-        </li>
-      </NavLink>
+      <li className={styles.navLink} style={{cursor: "pointer"}} onClick={handleLogout}>
+        <MdExitToApp size={23} />
+        <span>Log Out</span>
+      </li>
       <hr style={{color: "white"}} />
     </nav>
   );
