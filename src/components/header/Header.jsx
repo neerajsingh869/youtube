@@ -7,13 +7,21 @@ import { MdNotifications, MdApps } from "react-icons/md";
 
 import youtubeLogo from "../../assets/youtube.png";
 import profilePhoto from "../../assets/profile.png";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Header = ({ toggleSidebar }) => {
   const [searchInput, setSearchInput] = useState('');
   
   const navigate = useNavigate();
+
+  const {query} = useParams();
+
+  useEffect(() => {
+    if (query) {
+      setSearchInput(query);
+    }
+  }, [query]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();

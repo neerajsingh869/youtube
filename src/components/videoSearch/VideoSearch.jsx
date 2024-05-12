@@ -78,9 +78,6 @@ const VideoSearch = ({video}) => {
   const {channel} = useSelector(state => state.channelDetails);
   const {subscriptionStatus} = useSelector(state => state.subscriptionStatus);
 
-  console.log(channel);
-  console.log(subscriptionStatus);
-
   const handleVideoClick = () => {
     navigate(`/watch/${parsedVideoId}`);
   }
