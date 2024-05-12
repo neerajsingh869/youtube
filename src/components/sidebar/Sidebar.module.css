@@ -7,30 +7,40 @@
   position: sticky;
   top: 73px;
   left: 0;
+  white-space: nowrap;
 }
 
-.sidebar > li {
-  display: flex;
+.sidebar li {
   list-style-type: none;
+  display: flex;
+}
+
+.sidebar .navLink {
+  display: flex;
   margin-inline: 1rem;
   padding-inline: 0.5rem;
   padding-block: 0.5rem;
   margin-block: 0.25rem;
-  cursor: pointer;
+  text-decoration: none;
   color: var(--text-color-primary);
 }
 
-.sidebar > li:hover {
+.sidebar .navLink:hover {
   background-color: var(--border-color);
   border-radius: 8px;
 }
 
-.sidebar > li > span {
+.linkActive {
+  background-color: var(--border-color);
+  border-radius: 8px;
+}
+
+.sidebar li span {
   margin-left: 0.5rem;
 }
 
-@media screen and (max-width: 650px) {
-  .sidebar > li > span {
+@media screen and (max-width: 1300px) {
+  .sidebar li span {
     display: none;
   }
 }
@@ -42,7 +52,7 @@
     position: fixed;
   }
 
-  .sidebar > li > span {
+  .sidebar li span {
     display: block;
   }
 

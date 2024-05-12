@@ -12,6 +12,7 @@ import Home from "./pages/home/Home.jsx";
 import Login from "./pages/login/Login.jsx";
 import Watch from "./pages/watch/Watch.jsx";
 import Search from "./pages/search/Search.jsx";
+import Subscriptions from "./pages/subscriptions/Subscriptions.jsx";
 
 const routes = createRoutesFromElements(
   <Route path="/" errorElement={<Error />}>
@@ -28,6 +29,16 @@ const routes = createRoutesFromElements(
     <Route path="search/:query" element={
       <Layout>
         <Search />
+      </Layout>
+    } />
+    <Route path="feed/subscriptions" element={
+      <Layout>
+        <Subscriptions />
+      </Layout>
+    } />
+    <Route path="channel/:channelId" element={
+      <Layout>
+        <h1>Channel</h1>
       </Layout>
     } />
     <Route path="login" element={<Login />} />

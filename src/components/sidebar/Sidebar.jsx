@@ -12,6 +12,7 @@ import {
   MdHome,
 } from "react-icons/md";
 import { logout } from "../../redux/actions/authAction";
+import { NavLink } from "react-router-dom";
 
 const Sidebar = ({ sidebar, toggleSidebar }) => {
   const dispatch = useDispatch();
@@ -27,35 +28,63 @@ const Sidebar = ({ sidebar, toggleSidebar }) => {
       }
       onClick={toggleSidebar}
     >
-      <li>
-        <MdHome size={23} />
-        <span>Home</span>
-      </li>
-      <li>
-        <MdSubscriptions size={23} />
-        <span>Subscriptions</span>
-      </li>
-      <li>
-        <MdThumbUp size={23} />
-        <span>Liked Videos</span>
-      </li>
-      <li>
-        <MdHistory size={23} />
-        <span>History</span>
-      </li>
-      <li>
-        <MdLibraryBooks size={23} />
-        <span>Library</span>
-      </li>
-      <li>
-        <MdSentimentDissatisfied size={23} />
-        <span>I don&apos;t Know</span>
-      </li>
+      <NavLink to="/" className={({ isActive }) =>
+        isActive ? `${styles.linkActive} ${styles.navLink}` : `${styles.navLink}`
+      }>
+        <li>
+          <MdHome size={23} />
+          <span>Home</span>
+        </li>
+      </NavLink>
+      <NavLink to="/feed/subscriptions" className={({ isActive }) =>
+        isActive ? `${styles.linkActive} ${styles.navLink}` : `${styles.navLink}`
+      }>
+        <li>
+          <MdSubscriptions size={23} />
+          <span>Subscriptions</span>
+        </li>
+      </NavLink>
+      <NavLink to="/sdfa" className={({ isActive }) =>
+        isActive ? `${styles.linkActive} ${styles.navLink}` : `${styles.navLink}`
+      }>
+        <li>
+          <MdThumbUp size={23} />
+          <span>Liked Videos</span>
+        </li>
+      </NavLink>
+      <NavLink to="/dsfsadf" className={({ isActive }) =>
+        isActive ? `${styles.linkActive} ${styles.navLink}` : `${styles.navLink}`
+      }>
+        <li>
+          <MdHistory size={23} />
+          <span>History</span>
+        </li>
+      </NavLink>
+      <NavLink to="/dfsadf" className={({ isActive }) =>
+        isActive ? `${styles.linkActive} ${styles.navLink}` : `${styles.navLink}`
+      }>
+        <li>
+          <MdLibraryBooks size={23} />
+          <span>Library</span>
+        </li>
+      </NavLink>
+      <NavLink to="/dsafsdf" className={({ isActive }) =>
+        isActive ? `${styles.linkActive} ${styles.navLink}` : `${styles.navLink}`
+      }>
+        <li>
+          <MdSentimentDissatisfied size={23} />
+          <span>I don&apos;t Know</span>
+        </li>
+      </NavLink>
       <hr style={{color: "white"}} />
-      <li onClick={handleLogout}>
-        <MdExitToApp size={23} />
-        <span>Log Out</span>
-      </li>
+      <NavLink to="/login" className={({ isActive }) =>
+        isActive ? `${styles.linkActive} ${styles.navLink}` : `${styles.navLink}`
+      }>
+        <li onClick={handleLogout}>
+          <MdExitToApp size={23} />
+          <span>Log Out</span>
+        </li>
+      </NavLink>
       <hr style={{color: "white"}} />
     </nav>
   );
