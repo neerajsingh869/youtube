@@ -77,7 +77,7 @@ const VideoSearch = ({video}) => {
   }, [dispatch, channelId]);
 
   const {channel} = useSelector(state => state.channelDetails);
-  // const {subscriptionStatus} = useSelector(state => state.subscriptionStatus);
+  const {subscriptionStatus} = useSelector(state => state.subscriptionStatus);
 
   const handleVideoClick = () => {
     navigate(`/watch/${parsedVideoId}`);
@@ -87,7 +87,7 @@ const VideoSearch = ({video}) => {
 
   if (!isVideo) {
     return (
-      <VideoChannel channel={channel} />
+      <VideoChannel subscriptionStatus={subscriptionStatus} channel={channel} />
     )
   }
   

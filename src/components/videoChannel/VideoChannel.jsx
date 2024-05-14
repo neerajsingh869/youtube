@@ -3,7 +3,7 @@ import numeral from "numeral";
 import styles from "./VideoChannel.module.css";
 import { useNavigate } from "react-router-dom";
 
-const VideoChannel = ({channel}) => {
+const VideoChannel = ({channel, subscriptionStatus = false}) => {
   const navigate = useNavigate();
 
   const handleClick = (e) => {
@@ -32,8 +32,8 @@ const VideoChannel = ({channel}) => {
           {channel?.snippet?.description}
         </div>
       </div>
-      <button className={styles.subscribed}>
-        Subscribed
+      <button className={subscriptionStatus ? styles.subscribed : undefined}>
+        {subscriptionStatus ? "Subscribed" : "Subscribe"}
       </button>
     </div>
   )

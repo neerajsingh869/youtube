@@ -68,7 +68,7 @@ export const checkSubscriptionStatus = id => async (dispatch, getState) => {
   }
 }
 
-export const getSubscriptionsChannel = () => async (dispatch) => {
+export const getSubscriptionsChannel = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: SUBSCRIPTIONS_CHANNEL_REQUEST
@@ -78,24 +78,24 @@ export const getSubscriptionsChannel = () => async (dispatch) => {
       YOUTUBE API doesn't allow me to get subscriptions of user,
       so I am just showing channels which belongs to certain region
     */
-    // const result = await request('/subscriptions', {
-    //   params: {
-    //     part: "snippet,contentDetails",
-    //     mine: true
-    //   }, 
-    //   headers: {
-    //     Authorization: `Bearer ${getState().auth.googleAccessToken}`
-    //   }
-    // })
-
-    const result = await request("/search", {
+    const result = await request('/subscriptions', {
       params: {
-        part: "snippet",
-        regionCode: "IN",
-        maxResults: 20,
-        type: "channel"
+        part: "snippet,contentDetails",
+        mine: true
+      }, 
+      headers: {
+        Authorization: `Bearer ${getState().auth.googleAccessToken}`
       }
-    });
+    })
+
+    // const result = await request("/search", {
+    //   params: {
+    //     part: "snippet",
+    //     regionCode: "IN",
+    //     maxResults: 20,
+    //     type: "channel"
+    //   }
+    // });
 
     dispatch({
       type: SUBSCRIPTIONS_CHANNEL_SUCCESS,

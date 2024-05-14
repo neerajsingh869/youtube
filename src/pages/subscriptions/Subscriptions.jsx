@@ -16,7 +16,7 @@ const Subscriptions = () => {
   return (
     <div>
       {
-        !loading ? channels.map((channel, index) => <VideoChannel key={index} channel={channel} />) : [...Array(15)].map((_, index) => <SubscriptionSkeleton key={index} />)
+        !loading ? channels.map((channel, index) => <VideoChannel subscriptionStatus={true} key={index} channel={channel} />) : [...Array(15)].map((_, index) => <SubscriptionSkeleton key={index} />)
       }
     </div>
   )
