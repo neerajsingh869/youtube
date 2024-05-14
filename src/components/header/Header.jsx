@@ -6,9 +6,9 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { MdNotifications, MdApps } from "react-icons/md";
 
 import youtubeLogo from "../../assets/youtube.png";
-import profilePhoto from "../../assets/profile.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const Header = ({ toggleSidebar }) => {
   const [searchInput, setSearchInput] = useState('');
@@ -28,6 +28,8 @@ const Header = ({ toggleSidebar }) => {
 
     navigate(`/search/${searchInput}`);
   }
+
+  const auth = useSelector(state => state.auth);
 
   return (
     <header className={styles.header}>
@@ -60,7 +62,7 @@ const Header = ({ toggleSidebar }) => {
       <div className={styles.headerEnd}>
         <MdNotifications size={28} />
         <MdApps size={28} />
-        <img src={profilePhoto} alt="Profile Photo" />
+        <img style={{borderRadius: "50%"}} src={auth?.user?.photoUrl} alt="Profile Photo" />
       </div>
     </header>
   );

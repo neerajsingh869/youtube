@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 
 import styles from "./Comments.module.css";
-import profilePhoto from "../../assets/profile.png";
 import Comment from "../comment/Comment";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment, getCommentsOfVideoById } from "../../redux/actions/commentsAction";
@@ -16,6 +15,7 @@ const Comments = ({videoId}) => {
   }, [dispatch, videoId])
 
   const {comments} = useSelector(state => state.commentsList);
+  const auth = useSelector(state => state.auth);
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ const Comments = ({videoId}) => {
     <div className={styles.comments}>
       <p>{comments.length} Comments</p>
       <div className={styles.commentsForm}>
-        <img src={profilePhoto} alt="" />
+        <img src={auth?.user?.photoUrl} alt="avatar" />
         <input type="text" placeholder="Add a comment..." value={commentText} onChange={(e) => setCommentText(e.target.value)} />
         <button onClick={handleCommentSubmit}>Comment</button>
       </div>

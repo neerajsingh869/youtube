@@ -18,9 +18,10 @@
 }
 
 .commentsForm > img {
-  width: 36x;
+  width: 36px;
   height: 36px;
   object-fit: contain;
+  border-radius: 50%;
 }
 
 .commentsForm > input {
