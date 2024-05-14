@@ -67,7 +67,8 @@ export const checkSubscriptionReducer = (state = SUBSCRIPTION_INITIAL_STATE, act
 
 const SUBSCRIPTIONS_CHANNEL_INITIAL_STATE = {
   loading: false,
-  channels: []
+  channels: [],
+  nextPageToken: null
 }
 
 export const subscriptionsChannelReducer = (state = SUBSCRIPTIONS_CHANNEL_INITIAL_STATE, action) => {
@@ -83,7 +84,8 @@ export const subscriptionsChannelReducer = (state = SUBSCRIPTIONS_CHANNEL_INITIA
       return {
         ...state,
         loading: false,
-        channels: payload
+        channels: [...state.channels, ...payload.channels],
+        nextPageToken: payload.nextPageToken
       }
     case SUBSCRIPTIONS_CHANNEL_FAIL:
       return {

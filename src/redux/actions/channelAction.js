@@ -81,12 +81,16 @@ export const getSubscriptionsChannel = () => async (dispatch, getState) => {
     const result = await request('/subscriptions', {
       params: {
         part: "snippet,contentDetails",
+        maxResults: 10,
+        pageToken: getState().subscriptionsChannel.nextPageToken,
         mine: true
       }, 
       headers: {
         Authorization: `Bearer ${getState().auth.googleAccessToken}`
       }
     })
+
+    console.log(result);
 
     // const result = await request("/search", {
     //   params: {
@@ -99,7 +103,10 @@ export const getSubscriptionsChannel = () => async (dispatch, getState) => {
 
     dispatch({
       type: SUBSCRIPTIONS_CHANNEL_SUCCESS,
-      payload: result.data.items
+      payload: {
+        channels: result.data.items,
+        nextPageToken: result.data.nextPageToken
+      }
     })
   } catch (error) {
     dispatch({

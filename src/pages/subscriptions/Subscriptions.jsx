@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSubscriptionsChannel } from "../../redux/actions/channelAction";
 import VideoChannel from "../../components/videoChannel/VideoChannel";
 import SubscriptionSkeleton from "../../components/skeleton/SubscriptionSkeleton";
+import InfiniteScroll from "react-infinite-scroll-component";
+import styles from "./Subscriptions.module.css";
 
 const Subscriptions = () => {
   const dispatch = useDispatch();
@@ -13,11 +15,28 @@ const Subscriptions = () => {
 
   const {channels, loading} = useSelector(state => state.subscriptionsChannel);
 
+  const fetchData = () => {
+    dispatch(getSubscriptionsChannel());
+  }
+
   return (
     <div>
-      {
-        !loading ? channels.map((channel, index) => <VideoChannel subscriptionStatus={true} key={index} channel={channel} />) : [...Array(15)].map((_, index) => <SubscriptionSkeleton key={index} />)
-      }
+      <InfiniteScroll
+        dataLength={channels.length}
+        next={fetchData}
+        hasMore={true}
+        loader={
+          <div className="d-flex justify-content-center">
+            <div className="spinner-border" role="status" />
+          </div>
+        }
+        className={styles.infiniteScrollContainer}
+      >
+        {
+          !loading ? channels.map((channel, index) => <VideoChannel subscriptionStatus={true} key={index} channel={channel} />) : [...Array(10)].map((_, index) => <SubscriptionSkeleton key={index} />)
+        }
+      </InfiniteScroll>
+      
     </div>
   )
 }
