@@ -21,8 +21,6 @@ const Subscriptions = () => {
     dispatch(getSubscriptionsChannel());
   };
 
-  console.log(channels.length);
-
   return (
     <div>
       <InfiniteScroll
@@ -37,10 +35,10 @@ const Subscriptions = () => {
         className={styles.infiniteScrollContainer}
       >
         {!loading
-          ? channels.map((channel) => (
+          ? channels.map((channel, index) => (
               <VideoChannel
                 subscriptionStatus={true}
-                key={channel?.snippet?.resourceId?.channelId}
+                key={index}
                 channelId={channel?.snippet?.resourceId?.channelId}
               />
             ))

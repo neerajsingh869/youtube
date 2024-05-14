@@ -37,8 +37,8 @@ const Search = () => {
         className={styles.infiniteScrollContainer}
       >
         {!loading
-          ? videos.map((video) => (
-              <VideoSearch key={video.id.videoId} video={video} />
+          ? videos.map((video, index) => (
+              <VideoSearch key={index} video={video} />
             ))
           : [...Array(15)].map((_, index) => <SearchSkeleton key={index} />)}
       </InfiniteScroll>
