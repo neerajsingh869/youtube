@@ -69,7 +69,8 @@ export const selectedVideoReducer = (state = SELECTED_VIDEO_INITIAL_STATE, actio
 
 const SEARCHED_VIDEOS_INITIAL_STATE = {
   loading: false,
-  videos: []
+  videos: [],
+  nextPageToken: null,
 }
 
 export const searchedVideosReducer = (state = SEARCHED_VIDEOS_INITIAL_STATE, action) => {
@@ -85,7 +86,8 @@ export const searchedVideosReducer = (state = SEARCHED_VIDEOS_INITIAL_STATE, act
       return {
         ...state,
         loading: false,
-        videos: payload
+        videos: [...state.videos, ...payload.videos],
+        nextPageToken: payload.nextPageToken
       }
     case SEARCHED_VIDEOS_FAIL: 
       return {

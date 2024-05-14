@@ -105,17 +105,18 @@ export const getVideoById = (id) => async dispatch => {
   }
 }
 
-export const getVideosBySearch = (keyword) => async dispatch => {
+export const getVideosBySearch = (keyword) => async (dispatch, getState) => {
   try {
     dispatch({
       type: SEARCHED_VIDEOS_REQUEST
     });
-    
+
     const result = await request("/search", {
       params: {
         part: "snippet",
         regionCode: "IN",
         maxResults: 20,
+        pageToken: getState().searchedVideos.nextPageToken,
         q: keyword,
         type: "video,channel"
       }
@@ -123,7 +124,10 @@ export const getVideosBySearch = (keyword) => async dispatch => {
 
     dispatch({
       type: SEARCHED_VIDEOS_SUCCESS,
-      payload: result.data.items
+      payload: {
+        videos: result.data.items,
+        nextPageToken: result.data.nextPageToken
+      }
     })
 
   } catch (error) {
