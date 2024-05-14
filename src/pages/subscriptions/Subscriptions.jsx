@@ -8,16 +8,20 @@ import styles from "./Subscriptions.module.css";
 
 const Subscriptions = () => {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(getSubscriptionsChannel());
   }, [dispatch]);
 
-  const {channels, loading} = useSelector(state => state.subscriptionsChannel);
+  const { channels, loading } = useSelector(
+    (state) => state.subscriptionsChannel
+  );
 
   const fetchData = () => {
     dispatch(getSubscriptionsChannel());
-  }
+  };
+
+  console.log(channels.length);
 
   return (
     <div>
@@ -32,13 +36,20 @@ const Subscriptions = () => {
         }
         className={styles.infiniteScrollContainer}
       >
-        {
-          !loading ? channels.map((channel, index) => <VideoChannel subscriptionStatus={true} key={index} channel={channel} />) : [...Array(10)].map((_, index) => <SubscriptionSkeleton key={index} />)
-        }
+        {!loading
+          ? channels.map((channel) => (
+              <VideoChannel
+                subscriptionStatus={true}
+                key={channel?.snippet?.resourceId?.channelId}
+                channelId={channel?.snippet?.resourceId?.channelId}
+              />
+            ))
+          : [...Array(10)].map((_, index) => (
+              <SubscriptionSkeleton key={index} />
+            ))}
       </InfiniteScroll>
-      
     </div>
-  )
-}
+  );
+};
 
 export default Subscriptions;

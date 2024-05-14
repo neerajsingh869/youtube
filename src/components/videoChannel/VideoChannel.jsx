@@ -2,15 +2,34 @@
 import numeral from "numeral";
 import styles from "./VideoChannel.module.css";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import request from "../../../api";
 
-const VideoChannel = ({channel, subscriptionStatus = false}) => {
+const VideoChannel = ({channelId, subscriptionStatus = false}) => {
   const navigate = useNavigate();
+
+  const [channel, setChannel] = useState(null);
 
   const handleClick = (e) => {
     e.preventDefault();
 
-    navigate(`/channel/${channel?.id?.channelId}`);
+    navigate(`/channel/${channelId}`);
   }
+
+  useEffect(() => {
+    const fetchChannelDetails = async () => {
+      const response = await request('/channels', {
+        params: {
+          part: "snippet,statistics,contentDetails",
+          id: channelId
+        }
+      });
+
+      setChannel(response.data.items[0]);
+    }
+
+    fetchChannelDetails();
+  }, [channelId])
 
   return (
     <div className={styles.channelData} onClick={handleClick}>

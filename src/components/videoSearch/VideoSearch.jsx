@@ -76,7 +76,6 @@ const VideoSearch = ({video}) => {
     dispatch(getChannelDetails(channelId));
   }, [dispatch, channelId]);
 
-  const {channel} = useSelector(state => state.channelDetails);
   const {subscriptionStatus} = useSelector(state => state.subscriptionStatus);
 
   const handleVideoClick = () => {
@@ -87,7 +86,7 @@ const VideoSearch = ({video}) => {
 
   if (!isVideo) {
     return (
-      <VideoChannel subscriptionStatus={subscriptionStatus} channel={channel} />
+      <VideoChannel subscriptionStatus={subscriptionStatus} channelId={channelId} />
     )
   }
   
