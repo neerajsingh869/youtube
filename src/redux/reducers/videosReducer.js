@@ -102,7 +102,8 @@ export const searchedVideosReducer = (state = SEARCHED_VIDEOS_INITIAL_STATE, act
 
 const CHANNEL_VIDEOS_INITIAL_STATE = {
   loading: false,
-  videos: []
+  videos: [],
+  nextPageToken: null,
 }
 
 export const channelVideosReducer = (state = CHANNEL_VIDEOS_INITIAL_STATE, action) => {
@@ -118,7 +119,8 @@ export const channelVideosReducer = (state = CHANNEL_VIDEOS_INITIAL_STATE, actio
       return {
         ...state, 
         loading: false,
-        videos: payload
+        videos: [...state.videos, ...payload.videos],
+        nextPageToken: payload.nextPageToken
       }
     case CHANNEL_VIDEOS_FAIL:
       return {

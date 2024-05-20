@@ -142,7 +142,7 @@ export const getVideosBySearch = (keyword) => async (dispatch, getState) => {
   }
 }
 
-export const getVideosByChannel = (id) => async dispatch => {
+export const getVideosByChannel = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: CHANNEL_VIDEOS_REQUEST
@@ -163,13 +163,17 @@ export const getVideosByChannel = (id) => async dispatch => {
       params: {
         part: 'contentDetails,snippet',
         playlistId: uploadPlaylistId,
-        maxResults: 30
+        maxResults: 20,
+        pageToken: getState().channelVideos.nextPageToken,
       }
     })
 
     dispatch({
       type: CHANNEL_VIDEOS_SUCCESS,
-      payload: result.data.items
+      payload: {
+        videos: result.data.items,
+        nextPageToken: result.data.nextPageToken
+      }
     })
   } catch (error) {
     dispatch({

@@ -9,6 +9,7 @@ import HomeSkeleton from "../../components/skeleton/HomeSkeleton";
 import { checkSubscriptionStatus, getChannelDetails } from "../../redux/actions/channelAction";
 import numeral from "numeral";
 import ShowMoreText from "react-show-more-text";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Channel = () => {
   const {channelId} = useParams();
@@ -21,10 +22,13 @@ const Channel = () => {
     dispatch(checkSubscriptionStatus(channelId));
   }, [dispatch, channelId]);
 
+  const fetchData = () => {
+    dispatch(getVideosByChannel(channelId));
+  }
+
   const {videos, loading: channelVideosLoading} = useSelector(state => state.channelVideos);
   const {channel} = useSelector(state => state.channelDetails);
   const {subscriptionStatus} = useSelector(state => state.subscriptionStatus);
-  console.log(channel);
 
   return (
     <div>
@@ -64,22 +68,34 @@ const Channel = () => {
       </div>
       {/* channel videos */}
       <Container>
-        <Row className="mt-2">
-          {
-            !channelVideosLoading ? 
-            videos.map((video, index) => (
-              <Col key={`${video.id} ${index}`} lg={3} md={4} sm={6}>
-                <Video video={video} channel />
-              </Col>
-            ))
-            : 
-            [...new Array(20)].map((_, index) => (
-              <Col key={index} lg={3} md={4}>
-                <HomeSkeleton channel />
-              </Col>
-            ))
+        <InfiniteScroll
+          dataLength={videos.length}
+          next={fetchData}
+          hasMore={true}
+          loader={
+            <div className="d-flex justify-content-center">
+              <div className="spinner-border" role="status" />
+            </div>
           }
-        </Row>
+          className={styles.infiniteScrollContainer}
+        >
+          <Row className="mt-2">
+            {
+              !channelVideosLoading ? 
+              videos.map((video, index) => (
+                <Col key={`${video.id} ${index}`} lg={3} md={4} sm={6}>
+                  <Video video={video} channel />
+                </Col>
+              ))
+              : 
+              [...new Array(20)].map((_, index) => (
+                <Col key={index} lg={3} md={4}>
+                  <HomeSkeleton channel />
+                </Col>
+              ))
+            }
+          </Row>
+        </InfiniteScroll>
       </Container>
     </div>
   )

@@ -52,3 +52,7 @@ button.subscribed {
 .channelDescription span {
   color: var(--text-color-secondary);
 }
+
+.infiniteScrollContainer {
+  overflow: hidden !important;
+}
