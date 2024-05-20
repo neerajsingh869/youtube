@@ -26,7 +26,7 @@ const Login = () => {
       <div>
         <img src={youtubeLogo} alt="" />
         <button onClick={handleLogin}>Login with Google</button>
-        <p>YouTube clone maade by Neeraj</p>
+        <p>YouTube clone made by Neeraj</p>
       </div>
     </div>
   )
