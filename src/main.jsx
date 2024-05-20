@@ -13,6 +13,7 @@ import Login from "./pages/login/Login.jsx";
 import Watch from "./pages/watch/Watch.jsx";
 import Search from "./pages/search/Search.jsx";
 import Subscriptions from "./pages/subscriptions/Subscriptions.jsx";
+import Channel from "./pages/channel/Channel.jsx";
 
 const routes = createRoutesFromElements(
   <Route path="/" errorElement={<Error />}>
@@ -38,7 +39,7 @@ const routes = createRoutesFromElements(
     } />
     <Route path="channel/:channelId" element={
       <Layout>
-        <h1>Channel</h1>
+        <Channel />
       </Layout>
     } />
     <Route path="login" element={<Login />} />

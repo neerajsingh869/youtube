@@ -8,7 +8,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useNavigate } from "react-router-dom";
 
-const Video = ({video}) => {
+const Video = ({video, channel}) => {
   const [views, setViews] = useState(null);
   const [duration, setDuration] = useState(null);
   const [channelIcon, setChannelIcon] = useState(null);
@@ -31,9 +31,9 @@ const Video = ({video}) => {
     title,
     publishedAt,
     thumbnails: {medium}
-  }} = video;
+  }, contentDetails} = video;
 
-  const parsedVideoId = id?.videoId || id;
+  const parsedVideoId = id?.videoId || contentDetails?.videoId || id;
 
   useEffect(() => {
     const getVideoDetails = async () => {
@@ -79,11 +79,11 @@ const Video = ({video}) => {
       </div>
       <div className={styles.videoInfo}>
         {/* <img src={channelIcon?.url} alt="" /> */}
-        <LazyLoadImage style={{width: "32px"}} src={channelIcon?.url} effect="blur" />
+        { !channel && <LazyLoadImage style={{width: "32px"}} src={channelIcon?.url} effect="blur" /> }
         <div className={styles.videoDetails}>
           <span className={styles.videoTitle}>{title}</span>
           <div>
-            <span style={{fontSize: "0.85rem", marginBottom: "-0.25rem", color: "var(--text-color-secondary)"}}>{channelTitle}</span>
+            {!channel && <span style={{fontSize: "0.85rem", marginBottom: "-0.25rem", color: "var(--text-color-secondary)"}}>{channelTitle}</span>}
             <div>
               <span style={{fontSize: "0.85rem", color: "var(--text-color-secondary)"}}>
                 {numeral(views).format('0.a')} views 
