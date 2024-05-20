@@ -55,7 +55,7 @@ const Home = () => {
           {
             !loading ? 
               videos.map((video, index) => (
-                <Col key={`${video.id} ${index}`} lg={3} md={4}>
+                <Col key={`${video.id} ${index}`} lg={3} md={4} sm={6}>
                   <Video video={video} />
                 </Col>
               ))

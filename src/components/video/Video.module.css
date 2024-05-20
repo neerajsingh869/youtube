@@ -15,8 +15,13 @@
   position: relative;
 }
 
+.videoTop > span:nth-child(1) {
+  width: 100%;
+}
+
 .videoTop img {
   width: 100%;
+  object-fit: contain;
 }
 
 .videoTop > span:nth-child(2) {
@@ -59,4 +64,16 @@
           line-clamp: 2;
   -webkit-box-orient: vertical;
   word-break: break-all;
+}
+
+@media screen and (max-width: 570px) {
+  .videoTop > span:nth-child(2)  {
+    right: 3.5rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .videoTop > span:nth-child(2)  {
+    right: 0.5rem;
+  }
 }
