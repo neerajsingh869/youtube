@@ -12,6 +12,10 @@ export const SEARCHED_VIDEOS_REQUEST = "SEARCHED_VIDEOS_REQUEST";
 export const SEARCHED_VIDEOS_SUCCESS = "SEARCHED_VIDEOS_SUCCESS";
 export const SEARCHED_VIDEOS_FAIL = "SEARCHED_VIDEOS_FAIL";
 
+export const CHANNEL_VIDEOS_REQUEST = "CHANNEL_VIDEOS_REQUEST";
+export const CHANNEL_VIDEOS_SUCCESS = "CHANNEL_VIDEOS_SUCCESS";
+export const CHANNEL_VIDEOS_FAIL = "CHANNEL_VIDEOS_FAIL";
+
 // action creators
 export const getPopularVideos = () => async (dispatch, getState) => {
   try {
@@ -133,6 +137,43 @@ export const getVideosBySearch = (keyword) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: SEARCHED_VIDEOS_FAIL,
+      payload: error.message
+    })
+  }
+}
+
+export const getVideosByChannel = (id) => async dispatch => {
+  try {
+    dispatch({
+      type: CHANNEL_VIDEOS_REQUEST
+    })
+
+    // 1. get upload playlist id
+    let result = await request('/channels', {
+      params: {
+        part: 'contentDetails',
+        id: id
+      }
+    });
+
+    const uploadPlaylistId = result.data.items[0].contentDetails.relatedPlaylists.uploads;
+
+    // 2. get the videos by channel id
+    result = await request('/playlistItems', {
+      params: {
+        part: 'contentDetails,snippet',
+        playlistId: uploadPlaylistId,
+        maxResults: 30
+      }
+    })
+
+    dispatch({
+      type: CHANNEL_VIDEOS_SUCCESS,
+      payload: result.data.items
+    })
+  } catch (error) {
+    dispatch({
+      type: CHANNEL_VIDEOS_FAIL,
       payload: error.message
     })
   }
