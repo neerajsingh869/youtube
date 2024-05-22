@@ -3,7 +3,7 @@ import { CHANNEL_DETAILS_FAIL, CHANNEL_DETAILS_REQUEST, CHANNEL_DETAILS_SUCCESS,
 const CHANNEL_DETAILS_INITIAL_STATE = {
   loading: false,
   channel: null,
-
+  error: null
 }
 
 export const channelDetailsReducer = (state = CHANNEL_DETAILS_INITIAL_STATE, action) => {
@@ -13,13 +13,15 @@ export const channelDetailsReducer = (state = CHANNEL_DETAILS_INITIAL_STATE, act
     case CHANNEL_DETAILS_REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       }
     case CHANNEL_DETAILS_SUCCESS:
       return {
         ...state,
         loading: false,
-        channel: payload
+        channel: payload,
+        error: null
       }
     case CHANNEL_DETAILS_FAIL:
       return {
@@ -36,6 +38,7 @@ export const channelDetailsReducer = (state = CHANNEL_DETAILS_INITIAL_STATE, act
 const SUBSCRIPTION_INITIAL_STATE = {
   loading: false,
   subscriptionStatus: false,
+  error: null
 }
 
 export const checkSubscriptionReducer = (state = SUBSCRIPTION_INITIAL_STATE, action) => {
@@ -45,13 +48,15 @@ export const checkSubscriptionReducer = (state = SUBSCRIPTION_INITIAL_STATE, act
     case SUBSCRIPTION_STATUS_REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       }
     case SUBSCRIPTION_STATUS_SUCCESS:
       return {
         ...state,
         loading: false,
-        subscriptionStatus: payload
+        subscriptionStatus: payload,
+        error: null
       }
     case SUBSCRIPTION_STATUS_FAIL:
       return {
@@ -68,7 +73,8 @@ export const checkSubscriptionReducer = (state = SUBSCRIPTION_INITIAL_STATE, act
 const SUBSCRIPTIONS_CHANNEL_INITIAL_STATE = {
   loading: false,
   channels: [],
-  nextPageToken: null
+  nextPageToken: null,
+  error: null
 }
 
 export const subscriptionsChannelReducer = (state = SUBSCRIPTIONS_CHANNEL_INITIAL_STATE, action) => {
@@ -80,19 +86,22 @@ export const subscriptionsChannelReducer = (state = SUBSCRIPTIONS_CHANNEL_INITIA
         ...state,
         loading: false,
         channels: [],
-        nextPageToken: null
+        nextPageToken: null,
+        error: null
       }
     case SUBSCRIPTIONS_CHANNEL_REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       }
     case SUBSCRIPTIONS_CHANNEL_SUCCESS:
       return {
         ...state,
         loading: false,
         channels: [...state.channels, ...payload.channels],
-        nextPageToken: payload.nextPageToken
+        nextPageToken: payload.nextPageToken,
+        error: null
       }
     case SUBSCRIPTIONS_CHANNEL_FAIL:
       return {

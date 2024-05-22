@@ -21,6 +21,7 @@ const HOME_VIDEOS_INITIAL_STATE = {
   loading: false,
   nextPageToken: null,
   activeCategory: "All",
+  error: null
 };
 
 export const homeVideosReducer = (
@@ -36,12 +37,14 @@ export const homeVideosReducer = (
         videos: [],
         loading: false,
         nextPageToken: null,
-        activeCategory: "All"
+        activeCategory: "All",
+        error: null
       }
     case HOME_VIDEOS_REQUEST:
       return {
         ...state,
         loading: true,
+        error: null
       };
     case HOME_VIDEOS_SUCCESS:
       return {
@@ -53,6 +56,7 @@ export const homeVideosReducer = (
         nextPageToken: payload.nextPageToken,
         loading: false,
         activeCategory: payload.category,
+        error: null
       };
     case HOME_VIDEOS_FAIL:
       return {
@@ -68,6 +72,7 @@ export const homeVideosReducer = (
 const SELECTED_VIDEO_INITIAL_STATE = {
   loading: false,
   video: null,
+  error: null
 };
 
 export const selectedVideoReducer = (
@@ -81,12 +86,14 @@ export const selectedVideoReducer = (
       return {
         ...state,
         loading: true,
+        error: null
       };
     case SELECTED_VIDEO_SUCCESS:
       return {
         ...state,
         loading: false,
         video: payload,
+        error: null
       };
     case SELECTED_VIDEO_FAIL:
       return {
@@ -104,7 +111,8 @@ const SEARCHED_VIDEOS_INITIAL_STATE = {
   loading: false,
   videos: [],
   nextPageToken: null,
-  prevKeyword: null
+  prevKeyword: null,
+  error: null
 };
 
 export const searchedVideosReducer = (
@@ -120,12 +128,14 @@ export const searchedVideosReducer = (
         loading: false,
         videos: [],
         nextPageToken: null,
-        prevKeyword: null
+        prevKeyword: null,
+        error: null
       }
     case SEARCHED_VIDEOS_REQUEST:
       return {
         ...state,
         loading: true,
+        error: null
       };
     case SEARCHED_VIDEOS_SUCCESS:
       if (state.prevKeyword === payload.currKeyword) {
@@ -134,6 +144,7 @@ export const searchedVideosReducer = (
           loading: false,
           videos: [...state.videos, ...payload.videos],
           nextPageToken: payload.nextPageToken,
+          error: null
         };
       } else {
         return {
@@ -141,7 +152,8 @@ export const searchedVideosReducer = (
           loading: false,
           videos: [...payload.videos],
           nextPageToken: payload.nextPageToken,
-          prevKeyword: payload.currKeyword
+          prevKeyword: payload.currKeyword,
+          error: null
         };
       }
     case SEARCHED_VIDEOS_FAIL:
@@ -159,6 +171,7 @@ const CHANNEL_VIDEOS_INITIAL_STATE = {
   loading: false,
   videos: [],
   nextPageToken: null,
+  error: null
 };
 
 export const channelVideosReducer = (
@@ -173,12 +186,14 @@ export const channelVideosReducer = (
         ...state,
         loading: false,
         videos: [],
-        nextPageToken: null
+        nextPageToken: null,
+        error: null
       }
     case CHANNEL_VIDEOS_REQUEST:
       return {
         ...state,
         loading: true,
+        error: null
       };
     case CHANNEL_VIDEOS_SUCCESS:
       return {
@@ -186,6 +201,7 @@ export const channelVideosReducer = (
         loading: false,
         videos: [...state.videos, ...payload.videos],
         nextPageToken: payload.nextPageToken,
+        error: null
       };
     case CHANNEL_VIDEOS_FAIL:
       return {

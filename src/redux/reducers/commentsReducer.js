@@ -2,7 +2,8 @@ import { COMMENTS_LIST_REQUEST, COMMENTS_LIST_SUCCESS, COMMENTS_LSIT_FAIL } from
 
 const COMMENTS_LIST_INITIAL_STATE = {
   loading: false,
-  comments: []
+  comments: [],
+  error: null
 }
 
 export const commentsListReducer = (state = COMMENTS_LIST_INITIAL_STATE, action) => {
@@ -12,13 +13,15 @@ export const commentsListReducer = (state = COMMENTS_LIST_INITIAL_STATE, action)
     case COMMENTS_LIST_REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       }
     case COMMENTS_LIST_SUCCESS:
       return {
         ...state,
         loading: false,
-        comments: payload
+        comments: payload,
+        error: null
       }
     case COMMENTS_LSIT_FAIL:
       return {
