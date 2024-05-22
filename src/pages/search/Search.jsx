@@ -14,7 +14,7 @@ const Search = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getVideosBySearch(query));
+    dispatch(getVideosBySearch(query, 'onmount'));
   }, [dispatch, query]);
 
   const { videos, loading } = useSelector((state) => state.searchedVideos);

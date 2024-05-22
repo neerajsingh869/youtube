@@ -4,34 +4,54 @@ import request from "../../../api";
 export const HOME_VIDEOS_SUCCESS = "HOME_VIDEO_SUCCESS";
 export const HOME_VIDEOS_FAIL = "HOME_VIDEOS_FAIL";
 export const HOME_VIDEOS_REQUEST = "HOME_VIDEOS_REQUEST";
+export const HOME_VIDEOS_RESET = "HOME_VIDEOS_RESET";
+
 export const SELECTED_VIDEO_REQUEST = "SELECTED_VIDEO_REQUEST";
 export const SELECTED_VIDEO_SUCCESS = "SELECTED_VIDEO_SUCCESS";
 export const SELECTED_VIDEO_FAIL = "SELECTED_VIDEO_FAIL";
 
 export const SEARCHED_VIDEOS_REQUEST = "SEARCHED_VIDEOS_REQUEST";
+export const SEARCHED_VIDEOS_RESET = "SEARCHED_VIDEOS_RESET";
 export const SEARCHED_VIDEOS_SUCCESS = "SEARCHED_VIDEOS_SUCCESS";
 export const SEARCHED_VIDEOS_FAIL = "SEARCHED_VIDEOS_FAIL";
 
 export const CHANNEL_VIDEOS_REQUEST = "CHANNEL_VIDEOS_REQUEST";
 export const CHANNEL_VIDEOS_SUCCESS = "CHANNEL_VIDEOS_SUCCESS";
 export const CHANNEL_VIDEOS_FAIL = "CHANNEL_VIDEOS_FAIL";
+export const CHANNEL_VIDEOS_RESET = "CHANNEL_VIDEOS_RESET";
 
 // action creators
-export const getPopularVideos = () => async (dispatch, getState) => {
+export const getPopularVideos = (mountOrNot) => async (dispatch, getState) => {
   try {
     dispatch({
       type: HOME_VIDEOS_REQUEST
     });
 
-    const result = await request("/videos", {
-      params: {
-        part: "snippet,contentDetails,statistics",
-        chart: "mostPopular",
-        regionCode: "IN",
-        maxResults: 20,
-        pageToken: getState().homeVideos.nextPageToken,
-      }
-    });
+    let result;
+    if (mountOrNot && mountOrNot === 'onmount') {
+      dispatch({
+        type: HOME_VIDEOS_RESET
+      });
+
+      result = await request("/videos", {
+        params: {
+          part: "snippet,contentDetails,statistics",
+          chart: "mostPopular",
+          regionCode: "IN",
+          maxResults: 20,
+        }
+      });
+    } else {
+      result = await request("/videos", {
+        params: {
+          part: "snippet,contentDetails,statistics",
+          chart: "mostPopular",
+          regionCode: "IN",
+          maxResults: 20,
+          pageToken: getState().homeVideos.nextPageToken,
+        }
+      });
+    }
 
     dispatch({
       type: HOME_VIDEOS_SUCCESS,
@@ -109,22 +129,40 @@ export const getVideoById = (id) => async dispatch => {
   }
 }
 
-export const getVideosBySearch = (keyword) => async (dispatch, getState) => {
+export const getVideosBySearch = (keyword, mountOrNot) => async (dispatch, getState) => {
   try {
     dispatch({
       type: SEARCHED_VIDEOS_REQUEST
     });
 
-    const result = await request("/search", {
-      params: {
-        part: "snippet",
-        regionCode: "IN",
-        maxResults: 20,
-        pageToken: getState().searchedVideos.nextPageToken,
-        q: keyword,
-        type: "video,channel"
-      }
-    });
+    let result;
+
+    if (mountOrNot && mountOrNot === 'onmount') {
+      dispatch({
+        type: SEARCHED_VIDEOS_RESET
+      })
+
+      result = await request("/search", {
+        params: {
+          part: "snippet",
+          regionCode: "IN",
+          maxResults: 20,
+          q: keyword,
+          type: "video,channel"
+        }
+      });
+    } else {
+      result = await request("/search", {
+        params: {
+          part: "snippet",
+          regionCode: "IN",
+          maxResults: 20,
+          pageToken: getState().searchedVideos.nextPageToken,
+          q: keyword,
+          type: "video,channel"
+        }
+      });
+    }
 
     dispatch({
       type: SEARCHED_VIDEOS_SUCCESS,
@@ -143,7 +181,7 @@ export const getVideosBySearch = (keyword) => async (dispatch, getState) => {
   }
 }
 
-export const getVideosByChannel = (id) => async (dispatch, getState) => {
+export const getVideosByChannel = (id, mountOrNot) => async (dispatch, getState) => {
   try {
     dispatch({
       type: CHANNEL_VIDEOS_REQUEST
@@ -159,15 +197,30 @@ export const getVideosByChannel = (id) => async (dispatch, getState) => {
 
     const uploadPlaylistId = result.data.items[0].contentDetails.relatedPlaylists.uploads;
 
-    // 2. get the videos by channel id
-    result = await request('/playlistItems', {
-      params: {
-        part: 'contentDetails,snippet',
-        playlistId: uploadPlaylistId,
-        maxResults: 20,
-        pageToken: getState().channelVideos.nextPageToken,
-      }
-    })
+    if (mountOrNot && mountOrNot === 'onmount') {
+      dispatch({
+        type: CHANNEL_VIDEOS_RESET
+      })
+
+      // 2. get the videos by channel id
+      result = await request('/playlistItems', {
+        params: {
+          part: 'contentDetails,snippet',
+          playlistId: uploadPlaylistId,
+          maxResults: 20,
+        }
+      })
+    } else {
+      // 2. get the videos by channel id
+      result = await request('/playlistItems', {
+        params: {
+          part: 'contentDetails,snippet',
+          playlistId: uploadPlaylistId,
+          maxResults: 20,
+          pageToken: getState().channelVideos.nextPageToken,
+        }
+      })
+    }
 
     dispatch({
       type: CHANNEL_VIDEOS_SUCCESS,

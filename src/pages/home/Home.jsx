@@ -21,7 +21,7 @@ const Home = () => {
     // if you don't do it, then getPopularVideos will be dispatched even if
     // user is not signed in
     if (accessToken) {
-      dispatch(getPopularVideos());
+      dispatch(getPopularVideos('onmount'));
     }
   }, [dispatch, accessToken]);
 

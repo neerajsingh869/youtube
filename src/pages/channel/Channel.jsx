@@ -17,7 +17,7 @@ const Channel = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getVideosByChannel(channelId));
+    dispatch(getVideosByChannel(channelId, 'onmount'));
     dispatch(getChannelDetails(channelId));
     dispatch(checkSubscriptionStatus(channelId));
   }, [dispatch, channelId]);

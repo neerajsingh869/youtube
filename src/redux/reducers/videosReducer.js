@@ -1,12 +1,15 @@
 import {
   CHANNEL_VIDEOS_FAIL,
   CHANNEL_VIDEOS_REQUEST,
+  CHANNEL_VIDEOS_RESET,
   CHANNEL_VIDEOS_SUCCESS,
   HOME_VIDEOS_FAIL,
   HOME_VIDEOS_REQUEST,
+  HOME_VIDEOS_RESET,
   HOME_VIDEOS_SUCCESS,
   SEARCHED_VIDEOS_FAIL,
   SEARCHED_VIDEOS_REQUEST,
+  SEARCHED_VIDEOS_RESET,
   SEARCHED_VIDEOS_SUCCESS,
   SELECTED_VIDEO_FAIL,
   SELECTED_VIDEO_REQUEST,
@@ -27,6 +30,14 @@ export const homeVideosReducer = (
   const { type, payload } = action;
 
   switch (type) {
+    case HOME_VIDEOS_RESET:
+      return {
+        ...state,
+        videos: [],
+        loading: false,
+        nextPageToken: null,
+        activeCategory: "All"
+      }
     case HOME_VIDEOS_REQUEST:
       return {
         ...state,
@@ -103,6 +114,14 @@ export const searchedVideosReducer = (
   const { type, payload } = action;
 
   switch (type) {
+    case SEARCHED_VIDEOS_RESET:
+      return {
+        ...state,
+        loading: false,
+        videos: [],
+        nextPageToken: null,
+        prevKeyword: null
+      }
     case SEARCHED_VIDEOS_REQUEST:
       return {
         ...state,
@@ -149,6 +168,13 @@ export const channelVideosReducer = (
   const { type, payload } = action;
 
   switch (type) {
+    case CHANNEL_VIDEOS_RESET:
+      return {
+        ...state,
+        loading: false,
+        videos: [],
+        nextPageToken: null
+      }
     case CHANNEL_VIDEOS_REQUEST:
       return {
         ...state,
