@@ -118,7 +118,7 @@ const VideoSearch = ({video}) => {
               <span style={{fontSize: "0.75rem", marginBottom: "-0.25rem", color: "var(--text-color-secondary)"}}>{channelTitle}</span>
             </div>
           </div>
-          <div style={{fontSize: "0.75rem", color: "var(--text-color-secondary)"}}>
+          <div className={styles.videoDescription} style={{wordBreak: "normal" ,fontSize: "0.75rem", color: "var(--text-color-secondary)"}}>
             {description}
           </div>
         </div>

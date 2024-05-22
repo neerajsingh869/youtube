@@ -13,7 +13,12 @@
 /* style video thumbnail */
 .videoLeft {
   position: relative;
-  width: 25%;
+  width: 30%;
+  min-width: 250px;
+}
+
+.videoLeft > span:first-child {
+  width: 100%;
 }
 
 .videoLeft img {
@@ -34,6 +39,7 @@
 .videoInfo {
   display: flex;
   gap: 0.5rem;
+  width: 70%;
 }
 
 .videoInfo img {
@@ -46,6 +52,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .videoDetails > div {
@@ -53,11 +60,11 @@
   flex-direction: column;
 }
 
-.videoTitle {
+.videoTitle, .videoDescription {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-line-clamp: 2;
           line-clamp: 2;
   -webkit-box-orient: vertical;
   word-break: break-all;
