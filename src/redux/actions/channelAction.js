@@ -10,6 +10,7 @@ export const SUBSCRIPTION_STATUS_SUCCESS = "SUBSCRIPTION_STATUS_SUCCESS";
 export const SUBSCRIPTION_STATUS_FAIL = "SUBSCRIPTION_STATUS_FAIL";
 
 export const SUBSCRIPTIONS_CHANNEL_REQUEST = "SUBSCRIPTIONS_CHANNEL_REQUEST";
+export const SUBSCRIPTIONS_CHANNEL_RESET = "SUBSCRIPTIONS_CHANNEL_RESET";
 export const SUBSCRIPTIONS_CHANNEL_SUCCESS = "SUBSCRIPTIONS_CHANNEL_SUCCESS";
 export const SUBSCRIPTIONS_CHANNEL_FAIL = "SUBSCRIPTIONS_CHANNEL_FAIL";
 
@@ -68,36 +69,42 @@ export const checkSubscriptionStatus = id => async (dispatch, getState) => {
   }
 }
 
-export const getSubscriptionsChannel = () => async (dispatch, getState) => {
+export const getSubscriptionsChannel = (mountOrNot) => async (dispatch, getState) => {
   try {
     dispatch({
       type: SUBSCRIPTIONS_CHANNEL_REQUEST
     })
 
-    /* 
-      YOUTUBE API doesn't allow me to get subscriptions of user,
-      so I am just showing channels which belongs to certain region
-    */
-    const result = await request('/subscriptions', {
-      params: {
-        part: "snippet,contentDetails",
-        maxResults: 20,
-        pageToken: getState().subscriptionsChannel.nextPageToken,
-        mine: true
-      }, 
-      headers: {
-        Authorization: `Bearer ${getState().auth.googleAccessToken}`
-      }
-    })
+    let result = null;
 
-    // const result = await request("/search", {
-    //   params: {
-    //     part: "snippet",
-    //     regionCode: "IN",
-    //     maxResults: 20,
-    //     type: "channel"
-    //   }
-    // });
+    if (mountOrNot && mountOrNot === 'onmount') {
+      dispatch({
+        type: SUBSCRIPTIONS_CHANNEL_RESET
+      })
+
+      result = await request('/subscriptions', {
+        params: {
+          part: "snippet,contentDetails",
+          maxResults: 20,
+          mine: true
+        }, 
+        headers: {
+          Authorization: `Bearer ${getState().auth.googleAccessToken}`
+        }
+      })
+    } else {
+      result = await request('/subscriptions', {
+        params: {
+          part: "snippet,contentDetails",
+          maxResults: 20,
+          pageToken: getState().subscriptionsChannel.nextPageToken,
+          mine: true
+        }, 
+        headers: {
+          Authorization: `Bearer ${getState().auth.googleAccessToken}`
+        }
+      })
+    }
 
     dispatch({
       type: SUBSCRIPTIONS_CHANNEL_SUCCESS,

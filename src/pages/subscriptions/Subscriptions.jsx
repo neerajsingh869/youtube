@@ -10,7 +10,7 @@ const Subscriptions = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getSubscriptionsChannel());
+    dispatch(getSubscriptionsChannel('onmount'));
   }, [dispatch]);
 
   const { channels, loading } = useSelector(
