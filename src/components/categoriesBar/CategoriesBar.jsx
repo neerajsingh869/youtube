@@ -32,9 +32,9 @@ const CategoriesBar = () => {
 
   const handleCategoryClick = (category) => {
     if (category === 'All') {
-      dispatch(getPopularVideos());
+      dispatch(getPopularVideos('onmount'));
     } else {
-      dispatch(getVideosByCategory(category));
+      dispatch(getVideosByCategory(category, 'onmount'));
     }
 
     setActiveCategory(category);

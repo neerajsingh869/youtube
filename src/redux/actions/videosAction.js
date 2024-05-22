@@ -70,22 +70,39 @@ export const getPopularVideos = (mountOrNot) => async (dispatch, getState) => {
   }
 }
 
-export const getVideosByCategory = (keyword) => async (dispatch, getState) => {
+export const getVideosByCategory = (keyword, mountOrNot) => async (dispatch, getState) => {
   try {
     dispatch({
       type: HOME_VIDEOS_REQUEST
     });
-    
-    const result = await request("/search", {
-      params: {
-        part: "snippet",
-        regionCode: "IN",
-        maxResults: 20,
-        pageToken: getState().homeVideos.nextPageToken,
-        q: keyword,
-        type: "video"
-      }
-    });
+
+    let result;
+    if (mountOrNot && mountOrNot === 'onmount') {
+      dispatch({
+        type: HOME_VIDEOS_RESET
+      });
+
+      result = await request("/search", {
+        params: {
+          part: "snippet",
+          regionCode: "IN",
+          maxResults: 20,
+          q: keyword,
+          type: "video"
+        }
+      });
+    } else {
+      result = await request("/search", {
+        params: {
+          part: "snippet",
+          regionCode: "IN",
+          maxResults: 20,
+          pageToken: getState().homeVideos.nextPageToken,
+          q: keyword,
+          type: "video"
+        }
+      });
+    }
 
     dispatch({
       type: HOME_VIDEOS_SUCCESS,
