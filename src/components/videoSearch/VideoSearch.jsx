@@ -86,7 +86,7 @@ const VideoSearch = ({video}) => {
 
   if (!isVideo) {
     return (
-      <VideoChannel subscriptionStatus={subscriptionStatus} channelId={channelId} />
+      <VideoChannel subscriptionStatus={subscriptionStatus} channelId={channelId} search />
     )
   }
   

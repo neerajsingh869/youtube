@@ -1,23 +1,37 @@
 .channelData {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   width: 100%;
   margin-bottom: 1rem;
   cursor: pointer;
+  padding-inline: 4rem;
+}
+
+.channelDataSearch {
+  padding-inline: 0;
 }
 
 .channelIconContainer {
-  width: 25%;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-width: 200px;
+  max-width: 400px;
 }
 
 .channelIconContainer img {
   width: 60%;
+  object-fit: contain;
   border-radius: 50%;
+  max-width: 150px;
+}
+
+.channelRight {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-grow: 1;
 }
 
 .channelDetails {
@@ -27,7 +41,7 @@
   gap: 0.5rem;
 }
 
-.channelData > button {
+.channelRight > button {
   height: 2.4rem;
   border-radius: 1.2rem;
   padding-inline: 1rem;
@@ -36,11 +50,11 @@
   border: none;
 }
 
-.channelData > button:hover {
+.channelRight > button:hover {
   background-color: #d4d4d4;
 }
 
-.channelData > button.subscribed {
+.channelRight > button.subscribed {
   background-color: var(--border-color);
   color: white;
 }
@@ -53,4 +67,16 @@
           line-clamp: 2;
   -webkit-box-orient: vertical;
   word-break: break-all;
+}
+
+@media screen and (max-width: 870px) {
+  .channelData {
+    padding-inline: 0;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .channelRight > button {
+    display: none;
+  }
 }
