@@ -4,7 +4,8 @@ const INITIAL_STATE = {
   accessToken: sessionStorage.getItem('yt-access-token') ? sessionStorage.getItem('yt-access-token') : null,
   googleAccessToken: sessionStorage.getItem('yt-google-access-token') ? sessionStorage.getItem('yt-google-access-token') : null,
   user: sessionStorage.getItem('yt-user') ? JSON.parse(sessionStorage.getItem('yt-user')): null,
-  loading: false
+  loading: false,
+  error: null
 }
 
 export const authReducer = (state = INITIAL_STATE, action) => {
@@ -14,14 +15,16 @@ export const authReducer = (state = INITIAL_STATE, action) => {
     case LOGIN_REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       }
     case LOGIN_SUCCESS:
       return {
         ...state,
         accessToken: payload.accessToken,
         googleAccessToken: payload.googleAccessToken,
-        loading: false
+        loading: false,
+        error: null
       }
     case LOGIN_LOGOUT_FAIL:
       return {
@@ -34,7 +37,8 @@ export const authReducer = (state = INITIAL_STATE, action) => {
     case LOAD_PROFILE:
       return {
         ...state,
-        user: payload
+        user: payload,
+        error: null
       }
     case LOG_OUT:
       return {
@@ -42,6 +46,7 @@ export const authReducer = (state = INITIAL_STATE, action) => {
         accessToken: null,
         googleAccessToken: null,
         user: null,
+        error: null
       }
     default:
       return state;
