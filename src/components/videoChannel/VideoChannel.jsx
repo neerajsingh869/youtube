@@ -33,7 +33,7 @@ const VideoChannel = ({channelId, subscriptionStatus = false, search = false}) =
 
   return (
     <div className={`${styles.channelData} ${search ? styles.channelDataSearch : undefined}`} onClick={handleClick}>
-      <div className={styles.channelIconContainer}>
+      <div className={`${styles.channelIconContainer} ${search ? styles.channelIconContainerSearch : undefined}`}>
         <img src={channel?.snippet?.thumbnails?.medium?.url} />
       </div>
       <div className={styles.channelRight}>

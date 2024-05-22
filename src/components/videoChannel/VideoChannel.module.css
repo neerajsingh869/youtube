@@ -10,14 +10,19 @@
 
 .channelDataSearch {
   padding-inline: 0;
+  gap: 1rem;
 }
 
 .channelIconContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 200px;
-  max-width: 400px;
+  min-width: 250px;
+}
+
+.channelIconContainerSearch {
+  width: 50%;
+  min-width: 250px;
 }
 
 .channelIconContainer img {
