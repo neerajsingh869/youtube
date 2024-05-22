@@ -130,7 +130,8 @@ export const getVideosBySearch = (keyword) => async (dispatch, getState) => {
       type: SEARCHED_VIDEOS_SUCCESS,
       payload: {
         videos: result.data.items,
-        nextPageToken: result.data.nextPageToken
+        nextPageToken: result.data.nextPageToken,
+        currKeyword: keyword
       }
     })
 
