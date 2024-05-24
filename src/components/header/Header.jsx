@@ -33,13 +33,13 @@ const Header = ({ toggleSidebar }) => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.headerStart} onClick={() => navigate('/')}>
+      <div className={styles.headerStart}>
         <FaBars
           size={28}
           className={styles.headerMenu}
           onClick={toggleSidebar}
         />
-        <div>
+        <div onClick={() => navigate('/')}>
           <img
             src={youtubeLogo}
             alt="YouTube Logo"
