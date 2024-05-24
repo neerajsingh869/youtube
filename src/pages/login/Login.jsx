@@ -25,7 +25,7 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <Helmet>
-        <title>Login - YouTube</title>
+        <title>{`Login - YouTube`}</title>
       </Helmet>
       <div>
         <img src={youtubeLogo} alt="" />

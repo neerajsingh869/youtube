@@ -31,12 +31,10 @@ const Channel = () => {
   const {channel} = useSelector(state => state.channelDetails);
   const {subscriptionStatus} = useSelector(state => state.subscriptionStatus);
 
-  console.log(channel);
-
   return (
     <div>
       <Helmet>
-        <title>{channel?.snippet?.title} - YouTube</title>
+        <title>{`${channel?.snippet?.title} - YouTube`}</title>
       </Helmet>
       {/* channel banner */}
       <div className={styles.channelTop}>

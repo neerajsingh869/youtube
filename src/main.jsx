@@ -14,6 +14,7 @@ import Watch from "./pages/watch/Watch.jsx";
 import Search from "./pages/search/Search.jsx";
 import Subscriptions from "./pages/subscriptions/Subscriptions.jsx";
 import Channel from "./pages/channel/Channel.jsx";
+import Liked from "./pages/liked/Liked.jsx";
 
 const routes = createRoutesFromElements(
   <Route path="/" errorElement={<Error />}>
@@ -40,6 +41,11 @@ const routes = createRoutesFromElements(
     <Route path="channel/:channelId" element={
       <Layout>
         <Channel />
+      </Layout>
+    } />
+    <Route path="feed/likedVideos" element={
+      <Layout>
+        <Liked />
       </Layout>
     } />
     <Route path="login" element={<Login />} />

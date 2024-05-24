@@ -39,7 +39,7 @@ const Home = () => {
   return (
     <Container>
       <Helmet>
-        <title>YouTube</title>
+        <title>{`YouTube`}</title>
       </Helmet>
       <Row>
         <CategoriesBar />

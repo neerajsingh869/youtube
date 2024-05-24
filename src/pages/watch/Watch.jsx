@@ -27,7 +27,7 @@ const Watch = () => {
   return (
     <Row>
       <Helmet>
-        <title>{video?.snippet?.title} - YouTube</title>
+        <title>{`${video?.snippet?.title} - YouTube`}</title>
       </Helmet>
       <Col lg={8}>
         <div className={styles.player}>

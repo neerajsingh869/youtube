@@ -20,6 +20,11 @@ export const CHANNEL_VIDEOS_SUCCESS = "CHANNEL_VIDEOS_SUCCESS";
 export const CHANNEL_VIDEOS_FAIL = "CHANNEL_VIDEOS_FAIL";
 export const CHANNEL_VIDEOS_RESET = "CHANNEL_VIDEOS_RESET";
 
+export const LIKED_VIDEOS_FAIL = "LIKED_VIDEOS_FAIL";
+export const LIKED_VIDEOS_RESET = "LIKED_VIDEOS_RESET";
+export const LIKED_VIDEOS_REQUEST = "LIKED_VIDEOS_REQUEST";
+export const LIKED_VIDEOS_SUCCESS = "LIKED_VIDEOS_SUCCESS";
+
 // action creators
 export const getPopularVideos = (mountOrNot) => async (dispatch, getState) => {
   try {
@@ -250,6 +255,58 @@ export const getVideosByChannel = (id, mountOrNot) => async (dispatch, getState)
     dispatch({
       type: CHANNEL_VIDEOS_FAIL,
       payload: error.message
+    })
+  }
+}
+
+export const getLikedVideos = (mountOrNot) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: LIKED_VIDEOS_REQUEST
+    });
+
+    let result;
+    if (mountOrNot && mountOrNot === 'onmount') {
+      dispatch({
+        type: LIKED_VIDEOS_RESET
+      });
+
+      result = await request('/videos', {
+        params: {
+          part: "snippet,contentDetails,statistics",
+          maxResults: 20,
+          pageToken: getState().likedVideos.nextPageToken,
+          myRating: "like"
+        }, 
+        headers: {
+          Authorization: `Bearer ${getState().auth.googleAccessToken}`
+        }
+      })
+    } else {
+      result = await request('/videos', {
+        params: {
+          part: "snippet,contentDetails,statistics",
+          maxResults: 20,
+          pageToken: getState().likedVideos.nextPageToken,
+          myRating: "like"
+        }, 
+        headers: {
+          Authorization: `Bearer ${getState().auth.googleAccessToken}`
+        }
+      })
+    }
+
+    dispatch({
+      type: LIKED_VIDEOS_SUCCESS,
+      payload: {
+        videos: result.data.items,
+        nextPageToken: result.data.nextPageToken
+      }
+    })
+  } catch (error) {
+    dispatch({
+      type: LIKED_VIDEOS_FAIL,
+      error: error.message
     })
   }
 }

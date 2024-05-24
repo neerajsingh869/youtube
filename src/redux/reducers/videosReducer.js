@@ -7,6 +7,10 @@ import {
   HOME_VIDEOS_REQUEST,
   HOME_VIDEOS_RESET,
   HOME_VIDEOS_SUCCESS,
+  LIKED_VIDEOS_FAIL,
+  LIKED_VIDEOS_REQUEST,
+  LIKED_VIDEOS_RESET,
+  LIKED_VIDEOS_SUCCESS,
   SEARCHED_VIDEOS_FAIL,
   SEARCHED_VIDEOS_REQUEST,
   SEARCHED_VIDEOS_RESET,
@@ -204,6 +208,53 @@ export const channelVideosReducer = (
         error: null
       };
     case CHANNEL_VIDEOS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+    default:
+      return state;
+  }
+};
+
+const LIKED_VIDEOS_INITIAL_STATE = {
+  loading: false,
+  videos: [],
+  nextPageToken: null,
+  error: null
+};
+
+export const likedVideosReducer = (
+  state = LIKED_VIDEOS_INITIAL_STATE,
+  action
+) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case LIKED_VIDEOS_RESET:
+      return {
+        ...state,
+        loading: false,
+        videos: [],
+        nextPageToken: null,
+        error: null
+      }
+    case LIKED_VIDEOS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null
+      };
+    case LIKED_VIDEOS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        videos: [...state.videos, ...payload.videos],
+        nextPageToken: payload.nextPageToken,
+        error: null
+      };
+    case LIKED_VIDEOS_FAIL:
       return {
         ...state,
         loading: false,

@@ -25,7 +25,7 @@ const Subscriptions = () => {
   return (
     <div>
       <Helmet>
-        <title>Subscriptions - YouTube</title>
+        <title>{`Subscriptions - YouTube`}</title>
       </Helmet>
       <InfiniteScroll
         dataLength={channels.length}

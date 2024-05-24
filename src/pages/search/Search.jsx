@@ -27,7 +27,7 @@ const Search = () => {
   return (
     <Container>
       <Helmet>
-        <title>{query} - YouTube</title>
+        <title>{`${query} - YouTube`}</title>
       </Helmet>
       <InfiniteScroll
         dataLength={videos.length}

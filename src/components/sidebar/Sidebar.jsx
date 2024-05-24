@@ -43,7 +43,7 @@ const Sidebar = ({ sidebar, toggleSidebar }) => {
           <span>Subscriptions</span>
         </li>
       </NavLink>
-      <NavLink to="/sdfa" className={({ isActive }) =>
+      <NavLink to="/feed/likedVideos" className={({ isActive }) =>
         isActive ? `${styles.linkActive} ${styles.navLink}` : `${styles.navLink}`
       }>
         <li>
