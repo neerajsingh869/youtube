@@ -10,6 +10,7 @@ import { checkSubscriptionStatus, getChannelDetails } from "../../redux/actions/
 import numeral from "numeral";
 import ShowMoreText from "react-show-more-text";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Helmet } from "react-helmet";
 
 const Channel = () => {
   const {channelId} = useParams();
@@ -32,6 +33,9 @@ const Channel = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>{channel?.snippet?.title} - YouTube</title>
+      </Helmet>
       {/* channel banner */}
       <div className={styles.channelTop}>
         <div className={styles.channelLogo}>

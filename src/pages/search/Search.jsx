@@ -7,6 +7,7 @@ import VideoSearch from "../../components/videoSearch/VideoSearch";
 import SearchSkeleton from "../../components/skeleton/SearchSkeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import styles from "./Search.module.css";
+import { Helmet } from "react-helmet";
 
 const Search = () => {
   const { query } = useParams();
@@ -25,6 +26,9 @@ const Search = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>{query} - YouTube</title>
+      </Helmet>
       <InfiniteScroll
         dataLength={videos.length}
         next={fetchData}

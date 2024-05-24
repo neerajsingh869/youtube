@@ -11,6 +11,7 @@ import { getPopularVideos, getVideosByCategory } from "../../redux/actions/video
 import InfiniteScroll from "react-infinite-scroll-component";
 import 'react-loading-skeleton/dist/skeleton.css'
 import HomeSkeleton from "../../components/skeleton/HomeSkeleton";
+import { Helmet } from "react-helmet";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,9 @@ const Home = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>YouTube</title>
+      </Helmet>
       <Row>
         <CategoriesBar />
       </Row>

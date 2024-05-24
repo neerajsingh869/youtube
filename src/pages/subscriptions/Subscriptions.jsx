@@ -5,6 +5,7 @@ import VideoChannel from "../../components/videoChannel/VideoChannel";
 import SubscriptionSkeleton from "../../components/skeleton/SubscriptionSkeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import styles from "./Subscriptions.module.css";
+import { Helmet } from "react-helmet";
 
 const Subscriptions = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,9 @@ const Subscriptions = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Subscriptions - YouTube</title>
+      </Helmet>
       <InfiniteScroll
         dataLength={channels.length}
         next={fetchData}

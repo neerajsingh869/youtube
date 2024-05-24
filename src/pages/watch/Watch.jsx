@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPopularVideos, getVideoById } from "../../redux/actions/videosAction";
 import Skeleton from "react-loading-skeleton";
+import { Helmet } from "react-helmet";
 
 const Watch = () => {
   const {id} = useParams();
@@ -25,6 +26,9 @@ const Watch = () => {
 
   return (
     <Row>
+      <Helmet>
+        <title>{video?.snippet?.title} - YouTube</title>
+      </Helmet>
       <Col lg={8}>
         <div className={styles.player}>
           <iframe
