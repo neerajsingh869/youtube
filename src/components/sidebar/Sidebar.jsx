@@ -6,8 +6,6 @@ import {
   MdSubscriptions,
   MdExitToApp,
   MdThumbUp,
-  MdHistory,
-  MdLibraryBooks,
   MdHome,
 } from "react-icons/md";
 import { logout } from "../../redux/actions/authAction";
@@ -49,22 +47,6 @@ const Sidebar = ({ sidebar, toggleSidebar }) => {
         <li>
           <MdThumbUp size={23} />
           <span>Liked Videos</span>
-        </li>
-      </NavLink>
-      <NavLink to="/dsfsadf" className={({ isActive }) =>
-        isActive ? `${styles.linkActive} ${styles.navLink}` : `${styles.navLink}`
-      }>
-        <li>
-          <MdHistory size={23} />
-          <span>History</span>
-        </li>
-      </NavLink>
-      <NavLink to="/dfsadf" className={({ isActive }) =>
-        isActive ? `${styles.linkActive} ${styles.navLink}` : `${styles.navLink}`
-      }>
-        <li>
-          <MdLibraryBooks size={23} />
-          <span>Library</span>
         </li>
       </NavLink>
       <hr style={{color: "white"}} />
