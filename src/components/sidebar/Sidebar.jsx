@@ -68,14 +68,6 @@ const Sidebar = ({ sidebar, toggleSidebar }) => {
           <span>Library</span>
         </li>
       </NavLink>
-      <NavLink to="/dsafsdf" className={({ isActive }) =>
-        isActive ? `${styles.linkActive} ${styles.navLink}` : `${styles.navLink}`
-      }>
-        <li>
-          <MdSentimentDissatisfied size={23} />
-          <span>I don&apos;t Know</span>
-        </li>
-      </NavLink>
       <hr style={{color: "white"}} />
       <li className={styles.navLink} style={{cursor: "pointer"}} onClick={handleLogout}>
         <MdExitToApp size={23} />
