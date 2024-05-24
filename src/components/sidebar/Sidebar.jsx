@@ -8,7 +8,6 @@ import {
   MdThumbUp,
   MdHistory,
   MdLibraryBooks,
-  MdSentimentDissatisfied,
   MdHome,
 } from "react-icons/md";
 import { logout } from "../../redux/actions/authAction";
