@@ -41,7 +41,6 @@ const Subscriptions = () => {
         {!loading
           ? channels.map((channel, index) => (
               <VideoChannel
-                subscriptionStatus={true}
                 key={index}
                 channelId={channel?.snippet?.resourceId?.channelId}
               />

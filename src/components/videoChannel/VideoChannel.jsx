@@ -4,9 +4,12 @@ import styles from "./VideoChannel.module.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import request from "../../../api";
+import { useDispatch, useSelector } from "react-redux";
+import { checkSubscriptionStatus } from "../../redux/actions/channelAction";
 
-const VideoChannel = ({channelId, subscriptionStatus = false, search = false}) => {
+const VideoChannel = ({channelId, search = false}) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [channel, setChannel] = useState(null);
 
@@ -15,6 +18,14 @@ const VideoChannel = ({channelId, subscriptionStatus = false, search = false}) =
 
     navigate(`/channel/${channelId}`);
   }
+
+  useEffect(() => {
+    dispatch(checkSubscriptionStatus(channelId));
+  }, [dispatch, channelId]);
+
+  const { subscriptionStatus } = useSelector(
+    (state) => state.subscriptionStatus
+  );
 
   useEffect(() => {
     const fetchChannelDetails = async () => {
