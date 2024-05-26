@@ -7,8 +7,8 @@ import numeral from "numeral";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { checkSubscriptionStatus, getChannelDetails } from "../../redux/actions/channelAction";
+import { useDispatch } from "react-redux";
+import { getChannelDetails } from "../../redux/actions/channelAction";
 import VideoChannel from "../videoChannel/VideoChannel";
 
 const VideoSearch = ({video}) => {
@@ -72,11 +72,8 @@ const VideoSearch = ({video}) => {
   }, [channelId])
 
   useEffect(() => {
-    dispatch(checkSubscriptionStatus(channelId));
     dispatch(getChannelDetails(channelId));
   }, [dispatch, channelId]);
-
-  const {subscriptionStatus} = useSelector(state => state.subscriptionStatus);
 
   const handleVideoClick = () => {
     navigate(`/watch/${parsedVideoId}`);
@@ -86,7 +83,7 @@ const VideoSearch = ({video}) => {
 
   if (!isVideo) {
     return (
-      <VideoChannel subscriptionStatus={subscriptionStatus} channelId={channelId} search />
+      <VideoChannel channelId={channelId} search />
     )
   }
   
