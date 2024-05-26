@@ -25,6 +25,10 @@ export const LIKED_VIDEOS_RESET = "LIKED_VIDEOS_RESET";
 export const LIKED_VIDEOS_REQUEST = "LIKED_VIDEOS_REQUEST";
 export const LIKED_VIDEOS_SUCCESS = "LIKED_VIDEOS_SUCCESS";
 
+export const VIDEO_RATING_REQUEST = "VIDEO_RATING_REQUEST";
+export const VIDEO_RATING_SUCCESS = "VIDEO_RATING_SUCCESS";
+export const VIDEO_RATING_FAIL = "VIDEO_RATING_REQUEST";
+
 // action creators
 export const getPopularVideos = (mountOrNot) => async (dispatch, getState) => {
   try {
@@ -307,6 +311,35 @@ export const getLikedVideos = (mountOrNot) => async (dispatch, getState) => {
     dispatch({
       type: LIKED_VIDEOS_FAIL,
       error: error.message
+    })
+  }
+}
+
+export const getVideoRating = id => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: VIDEO_RATING_REQUEST
+    });
+
+    const response = await request('/videos/getRating', {
+      params: {
+        id: id,
+      }, 
+      headers: {
+        Authorization: `Bearer ${getState().auth.googleAccessToken}`
+      }
+    })
+
+    dispatch({
+      type: VIDEO_RATING_SUCCESS,
+      payload: response.data.items[0].rating
+    })
+
+    console.log(response.data.items[0].rating);
+  } catch (error) {
+    dispatch({
+      type: VIDEO_RATING_FAIL,
+      payload: error.message
     })
   }
 }

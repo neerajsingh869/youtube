@@ -3,24 +3,125 @@ import styles from "./VideoMetadata.module.css";
 import numeral from "numeral";
 import moment from "moment";
 
-import { MdThumbUpOffAlt, MdThumbDownOffAlt } from "react-icons/md";
+import {
+  MdThumbUpOffAlt,
+  MdThumbDownOffAlt,
+  MdThumbUpAlt,
+  MdThumbDownAlt,
+} from "react-icons/md";
 import ShowMoreText from "react-show-more-text";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { checkSubscriptionStatus, getChannelDetails } from "../../redux/actions/channelAction";
+import { useEffect, useState } from "react";
+import {
+  checkSubscriptionStatus,
+  getChannelDetails,
+} from "../../redux/actions/channelAction";
+import request from "../../../api";
+import { getVideoRating } from "../../redux/actions/videosAction";
 
-const VideoMetadata = ({video}) => {
-  const {snippet: {publishedAt, title, description, channelTitle, channelId}, statistics: {likeCount, viewCount}} = video;
+const VideoMetadata = ({ video }) => {
+  const [isVideoDisliked, setIsVideoDisliked] = useState(false);
+  const [isVideoLiked, setIsVideoLiked] = useState(false);
+  const {
+    id,
+    snippet: { publishedAt, title, description, channelTitle, channelId },
+    statistics: { likeCount, viewCount },
+  } = video;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkSubscriptionStatus(channelId));
     dispatch(getChannelDetails(channelId));
-  }, [dispatch, channelId]);
+    dispatch(getVideoRating(id));
+  }, [dispatch, channelId, id]);
 
-  const {channel} = useSelector(state => state.channelDetails);
-  const {subscriptionStatus} = useSelector(state => state.subscriptionStatus);
+  const { channel } = useSelector((state) => state.channelDetails);
+  const { subscriptionStatus } = useSelector(
+    (state) => state.subscriptionStatus
+  );
+  const { googleAccessToken } = useSelector((state) => state.auth);
+
+  const {videoRating} = useSelector(state => state.videoRating);
+  console.log(videoRating);
+  
+  useEffect(() => {
+    if (videoRating === 'dislike') {
+      setIsVideoDisliked(true);
+    } else {
+      setIsVideoDisliked(false);
+    }
+  }, [videoRating])
+
+  useEffect(() => {
+    if (videoRating === 'like') {
+      setIsVideoLiked(true);
+    } else {
+      setIsVideoLiked(false);
+    }
+  }, [videoRating])
+
+  const toggleLikeVideo = async (e) => {
+    e.preventDefault();
+    setIsVideoDisliked(false);
+
+    if (isVideoLiked) {
+      await request("/videos/rate", {
+        method: "post",
+        params: {
+          id: id,
+          rating: "none",
+        },
+        headers: {
+          Authorization: `Bearer ${googleAccessToken}`,
+        },
+      });
+    } else {
+      await request("/videos/rate", {
+        method: "post",
+        params: {
+          id: id,
+          rating: "like",
+        },
+        headers: {
+          Authorization: `Bearer ${googleAccessToken}`,
+        },
+      });
+    }
+
+    setIsVideoLiked(!isVideoLiked);
+  };
+
+  const toggleDislikeVideo = async (e) => {
+    e.preventDefault();
+    setIsVideoLiked(false);
+
+    if (isVideoDisliked) {
+      await request("/videos/rate", {
+        method: "post",
+        params: {
+          id: id,
+          rating: "none",
+        },
+        headers: {
+          Authorization: `Bearer ${googleAccessToken}`,
+        },
+      });
+    } else {
+      await request("/videos/rate", {
+        method: "post",
+        params: {
+          id: id,
+          rating: "dislike",
+        },
+        headers: {
+          Authorization: `Bearer ${googleAccessToken}`,
+        },
+      });
+    }
+
+    setIsVideoDisliked(!isVideoDisliked);
+  };
 
   return (
     <div className={styles.videoMetadata}>
@@ -31,35 +132,41 @@ const VideoMetadata = ({video}) => {
             <img src={channel?.snippet?.thumbnails?.default?.url} alt="" />
             <div className={styles.videoChannelInfo}>
               <div className={styles.videoChannelName}>{channelTitle}</div>
-              <div style={{fontSize: "0.75rem", color: "var(--text-color-secondary)"}}>
-                {numeral(channel?.statistics?.subscriberCount).format('0.a')} subscribers 
+              <div
+                style={{
+                  fontSize: "0.75rem",
+                  color: "var(--text-color-secondary)",
+                }}
+              >
+                {numeral(channel?.statistics?.subscriberCount).format("0.a")}{" "}
+                subscribers
               </div>
             </div>
-            <button className={subscriptionStatus ? styles.subscribed : undefined}>
+            <button
+              className={subscriptionStatus ? styles.subscribed : undefined}
+            >
               {subscriptionStatus ? "Subscribed" : "Subscribe"}
             </button>
           </div>
           <div className={styles.videoSentiments}>
-            <button>
-              <MdThumbUpOffAlt size={22} />
-              <span style={{color: "white", marginLeft: "0.25rem"}}>
-                {numeral(likeCount).format('0.a')}
+            <button onClick={toggleLikeVideo}>
+              {
+                isVideoLiked ? <MdThumbUpAlt size={22} /> : <MdThumbUpOffAlt size={22} />
+              }
+              <span style={{ color: "white", marginLeft: "0.25rem" }}>
+                {numeral(likeCount).format("0.a")}
               </span>
             </button>
-            <button>
-              <MdThumbDownOffAlt size={22} />
+            <button onClick={toggleDislikeVideo}>
+              {isVideoDisliked ? <MdThumbDownAlt size={22} />: <MdThumbDownOffAlt size={22} />}
             </button>
           </div>
         </div>
       </div>
       <div className={styles.videoDescription}>
         <div className={styles.videoStats}>
-          <span>
-            {numeral(viewCount).format('0.a')} views 
-          </span>
-          <span>
-            {moment(publishedAt).fromNow()}
-          </span>
+          <span>{numeral(viewCount).format("0.a")} views</span>
+          <span>{moment(publishedAt).fromNow()}</span>
         </div>
         <div className={styles.videoAboutMe}>
           <ShowMoreText
@@ -74,7 +181,7 @@ const VideoMetadata = ({video}) => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default VideoMetadata;

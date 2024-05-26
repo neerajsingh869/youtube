@@ -18,6 +18,9 @@ import {
   SELECTED_VIDEO_FAIL,
   SELECTED_VIDEO_REQUEST,
   SELECTED_VIDEO_SUCCESS,
+  VIDEO_RATING_FAIL,
+  VIDEO_RATING_REQUEST,
+  VIDEO_RATING_SUCCESS,
 } from "../actions/videosAction";
 
 const HOME_VIDEOS_INITIAL_STATE = {
@@ -264,3 +267,37 @@ export const likedVideosReducer = (
       return state;
   }
 };
+
+const VIDEO_RATING_INITIAL_STATE = {
+  loading: false,
+  videoRating: null,
+  error: null
+}
+
+export const videoRatingReducer = (state = VIDEO_RATING_INITIAL_STATE, action) => {
+  const {type, payload} = action;
+
+  switch (type) {
+    case VIDEO_RATING_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null
+      }
+    case VIDEO_RATING_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        videoRating: payload,
+        error: null
+      }
+    case VIDEO_RATING_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload
+      }
+    default:
+      return state;
+  }
+}
