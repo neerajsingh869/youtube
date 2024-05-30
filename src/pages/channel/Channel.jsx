@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import styles from "./Channel.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getVideosByChannel } from "../../redux/actions/videosAction";
 import { Col, Container, Row } from "react-bootstrap";
 import Video from "../../components/video/Video";
@@ -11,9 +11,11 @@ import numeral from "numeral";
 import ShowMoreText from "react-show-more-text";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Helmet } from "react-helmet";
+import request from "../../../api";
 
 const Channel = () => {
   const {channelId} = useParams();
+  const [isSubscribed, setIsSubscribed] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -30,6 +32,68 @@ const Channel = () => {
   const {videos, loading: channelVideosLoading} = useSelector(state => state.channelVideos);
   const {channel} = useSelector(state => state.channelDetails);
   const {subscriptionStatus} = useSelector(state => state.subscriptionStatus);
+  const { googleAccessToken } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    setIsSubscribed(subscriptionStatus);
+  }, [subscriptionStatus]);
+
+  const toggleSubsription = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (isSubscribed) {
+        // get subscription object to know id in order to unsubcribe it
+        const response = await request('/subscriptions', {
+          params: {
+            part: "snippet",
+            forChannelId: channelId,
+            mine: true
+          }, 
+          headers: {
+            Authorization: `Bearer ${googleAccessToken}`
+          }
+        })
+
+        // unsubscribe channel
+        await request('/subscriptions', {
+          method: "delete",
+          params: {
+            id: response.data.items[0].id
+          },
+          headers: {
+            Authorization: `Bearer ${googleAccessToken}`
+          }
+        })
+
+        setIsSubscribed(false);
+      } else {
+        // subscribe
+        console.log(channel);
+
+        await request('/subscriptions', {
+          method: "post",
+          params: {
+            part: "snippet"
+          },
+          headers: {
+            Authorization: `Bearer ${googleAccessToken}`
+          },
+          data: {
+            "snippet": {
+              "resourceId": {
+                "channelId": channel.id
+              }
+            }
+          }
+        });
+
+        setIsSubscribed(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div>
@@ -65,8 +129,8 @@ const Channel = () => {
               {channel?.snippet?.description}
             </ShowMoreText>
           </div>
-          <button className={subscriptionStatus ? styles.subscribed : undefined}>
-              {subscriptionStatus ? "Subscribed" : "Subscribe"}
+          <button className={isSubscribed ? styles.subscribed : undefined} onClick={toggleSubsription}>
+              {isSubscribed ? "Subscribed" : "Subscribe"}
             </button>
         </div>
       </div>

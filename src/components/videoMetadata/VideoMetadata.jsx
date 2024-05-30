@@ -22,6 +22,7 @@ import { getVideoRating } from "../../redux/actions/videosAction";
 const VideoMetadata = ({ video }) => {
   const [isVideoDisliked, setIsVideoDisliked] = useState(false);
   const [isVideoLiked, setIsVideoLiked] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
   const {
     id,
     snippet: { publishedAt, title, description, channelTitle, channelId },
@@ -60,6 +61,10 @@ const VideoMetadata = ({ video }) => {
       setIsVideoLiked(false);
     }
   }, [videoRating])
+
+  useEffect(() => {
+    setIsSubscribed(subscriptionStatus);
+  }, [subscriptionStatus]);
 
   const toggleLikeVideo = async (e) => {
     e.preventDefault();
@@ -123,6 +128,63 @@ const VideoMetadata = ({ video }) => {
     setIsVideoDisliked(!isVideoDisliked);
   };
 
+  const toggleSubsription = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (isSubscribed) {
+        // get subscription object to know id in order to unsubcribe it
+        const response = await request('/subscriptions', {
+          params: {
+            part: "snippet",
+            forChannelId: channelId,
+            mine: true
+          }, 
+          headers: {
+            Authorization: `Bearer ${googleAccessToken}`
+          }
+        })
+
+        // unsubscribe channel
+        await request('/subscriptions', {
+          method: "delete",
+          params: {
+            id: response.data.items[0].id
+          },
+          headers: {
+            Authorization: `Bearer ${googleAccessToken}`
+          }
+        })
+
+        setIsSubscribed(false);
+      } else {
+        // subscribe
+        console.log(channel);
+
+        await request('/subscriptions', {
+          method: "post",
+          params: {
+            part: "snippet"
+          },
+          headers: {
+            Authorization: `Bearer ${googleAccessToken}`
+          },
+          data: {
+            "snippet": {
+              "resourceId": {
+                "channelId": channel.id
+              }
+            }
+          }
+        });
+
+        setIsSubscribed(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className={styles.videoMetadata}>
       <div className={styles.videoTop}>
@@ -143,9 +205,10 @@ const VideoMetadata = ({ video }) => {
               </div>
             </div>
             <button
-              className={subscriptionStatus ? styles.subscribed : undefined}
+              className={isSubscribed ? styles.subscribed : undefined}
+              onClick={toggleSubsription}
             >
-              {subscriptionStatus ? "Subscribed" : "Subscribe"}
+              {isSubscribed ? "Subscribed" : "Subscribe"}
             </button>
           </div>
           <div className={styles.videoSentiments}>
