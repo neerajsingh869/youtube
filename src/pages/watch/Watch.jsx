@@ -42,7 +42,7 @@ const Watch = () => {
         </div>
 
         {video ? <VideoMetadata video={video} /> : <h6>Loading...</h6>}
-        <Comments videoId={id} />
+        <Comments videoId={id} commentCount={video?.statistics?.commentCount} />
       </Col>
       <Col lg={4}>
         {

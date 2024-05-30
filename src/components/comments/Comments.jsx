@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addComment, getCommentsOfVideoById } from "../../redux/actions/commentsAction";
 import { useEffect, useState } from "react";
 
-const Comments = ({videoId}) => {
+const Comments = ({videoId, commentCount}) => {
   const [commentText, setCommentText] = useState('');
   const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ const Comments = ({videoId}) => {
 
   return (
     <div className={styles.comments}>
-      <p>{comments.length} Comments</p>
+      <p>{commentCount} Comments</p>
       <div className={styles.commentsForm}>
         <img src={auth?.user?.photoUrl} alt="avatar" />
         <input type="text" placeholder="Add a comment..." value={commentText} onChange={(e) => setCommentText(e.target.value)} />
