@@ -1,4 +1,4 @@
-import { COMMENTS_LIST_REQUEST, COMMENTS_LIST_RESET, COMMENTS_LIST_SUCCESS, COMMENTS_LSIT_FAIL } from "../actions/commentsAction";
+import { COMMENTS_LIST_FAIL, COMMENTS_LIST_REQUEST, COMMENTS_LIST_RESET, COMMENTS_LIST_SUCCESS } from "../actions/commentsAction";
 
 const COMMENTS_LIST_INITIAL_STATE = {
   loading: false,
@@ -33,7 +33,7 @@ export const commentsListReducer = (state = COMMENTS_LIST_INITIAL_STATE, action)
         error: null,
         nextPageToken: payload.nextPageToken,
       }
-    case COMMENTS_LSIT_FAIL:
+    case COMMENTS_LIST_FAIL:
       return {
         ...state,
         loading: false,

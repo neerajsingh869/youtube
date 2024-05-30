@@ -3,7 +3,7 @@ import request from "../../../api";
 
 // action constants
 export const COMMENTS_LIST_SUCCESS = "COMMENTS_LIST_SUCCESS";
-export const COMMENTS_LSIT_FAIL = "COMMENTS_LSIT_FAIL";
+export const COMMENTS_LIST_FAIL = "COMMENTS_LIST_FAIL";
 export const COMMENTS_LIST_REQUEST = "COMMENTS_LIST_REQUEST";
 export const COMMENTS_LIST_RESET = "COMMENTS_LIST_RESET";
 
@@ -17,6 +17,7 @@ export const getCommentsOfVideoById = (id, mountOrNot) => async (dispatch, getSt
     dispatch({
       type: COMMENTS_LIST_REQUEST
     })
+    console.log("action dispatched to get comments of video by id");
 
     let response;
     if (mountOrNot && mountOrNot === 'onmount') {
@@ -41,7 +42,7 @@ export const getCommentsOfVideoById = (id, mountOrNot) => async (dispatch, getSt
         }
       })
     }
-
+    console.log(response.data.items);
     dispatch({
       type: COMMENTS_LIST_SUCCESS,
       payload: {
@@ -51,7 +52,7 @@ export const getCommentsOfVideoById = (id, mountOrNot) => async (dispatch, getSt
     })
   } catch (error) {
     dispatch({
-      type: COMMENTS_LSIT_FAIL,
+      type: COMMENTS_LIST_FAIL,
       payload: error.message
     })
   }
@@ -74,7 +75,7 @@ export const addComment = (id, commentText) => async (dispatch, getState) => {
       }
     }
 
-    await request.post('/commentThreads', obj, {
+    const response = await request.post('/commentThreads', obj, {
       params: {
         part: "snippet",
       },
@@ -83,11 +84,13 @@ export const addComment = (id, commentText) => async (dispatch, getState) => {
       }
     })
 
+    console.log(response);
+
     dispatch({
       type: CREATE_COMMENT_SUCCESS,
     })
 
-    setTimeout(() => dispatch(getCommentsOfVideoById(id)), 6000);
+    setTimeout(() => dispatch(getCommentsOfVideoById(id, "onmount")), 120000);
   } catch (error) {
     dispatch({
       type: CREATE_COMMENT_FAIL,

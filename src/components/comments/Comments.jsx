@@ -63,8 +63,8 @@ const Comments = ({ videoId, commentCount }) => {
           className={styles.infiniteScrollContainer}
         >
           {!loading
-            ? comments.map((comment, index) => (
-                <Comment comment={comment} key={index} />
+            ? comments.map((comment) => (
+                <Comment comment={comment} key={comment.id} />
               ))
             : [...Array(20)].map((_, index) => <CommentSkeleton key={index} />)}
         </InfiniteScroll>
