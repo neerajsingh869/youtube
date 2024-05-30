@@ -5,28 +5,49 @@ import request from "../../../api";
 export const COMMENTS_LIST_SUCCESS = "COMMENTS_LIST_SUCCESS";
 export const COMMENTS_LSIT_FAIL = "COMMENTS_LSIT_FAIL";
 export const COMMENTS_LIST_REQUEST = "COMMENTS_LIST_REQUEST";
+export const COMMENTS_LIST_RESET = "COMMENTS_LIST_RESET";
 
 export const CREATE_COMMENT_SUCCESS = "CREATE_COMMENT_SUCCESS";
 export const CREATE_COMMENT_FAIL = "CREATE_COMMENT_FAIL";
 export const CREATE_COMMENT_REQUEST = "CREATE_COMMENT_REQUEST";
 
 // action creators
-export const getCommentsOfVideoById = id => async dispatch => {
+export const getCommentsOfVideoById = (id, mountOrNot) => async (dispatch, getState) => {
   try {
     dispatch({
       type: COMMENTS_LIST_REQUEST
     })
 
-    const response = await request('/commentThreads', {
-      params: {
-        part: "snippet",
-        videoId: id
-      }
-    })
+    let response;
+    if (mountOrNot && mountOrNot === 'onmount') {
+      dispatch({
+        type: COMMENTS_LIST_RESET
+      });
+
+      response = await request('/commentThreads', {
+        params: {
+          part: "snippet",
+          videoId: id,
+          maxResults: 20
+        }
+      })
+    } else {
+      response = await request('/commentThreads', {
+        params: {
+          part: "snippet",
+          videoId: id,
+          maxResults: 20,
+          pageToken: getState().commentsList.nextPageToken,
+        }
+      })
+    }
 
     dispatch({
       type: COMMENTS_LIST_SUCCESS,
-      payload: response.data.items
+      payload: {
+        comments: response.data.items,
+        nextPageToken: response.data.nextPageToken
+      }
     })
   } catch (error) {
     dispatch({

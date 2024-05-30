@@ -1,3 +1,7 @@
+.infiniteScrollContainer {
+  overflow: hidden !important;
+}
+
 .comments {
   display: flex;
   flex-direction: column;
